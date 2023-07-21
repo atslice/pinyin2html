@@ -5,22 +5,52 @@ class Pinyin2h():
     def __init__(self) -> None:
         pass
 
-    def dump_html(self, chars: str, out_file = None):
+    def dump_html(self, chars: str, number: int, out_file = None):
+        """
+            Args:
+                number: limit the number of chars in a line
+        """        
         if out_file is None:
             return
         with open(out_file, 'w') as writer:
-            writer.write(self.gen_html(chars=chars))
+            writer.write(self.gen_html(chars=chars, number=number))
 
-    def gen_html(self, chars: str):
-        html_str = self.gen_start()
-        marks = pinyin(chars, heteronym=True)
-        i = 0
-        for char in chars:
-            span = self.gen_span(char=char, mark=marks[i])
-            i += 1
-            html_str = f'{html_str}{span}'
+    def gen_html(self, chars: str, number: int):
+        """
+            Args:
+                number: limit the number of chars in a line
+        """
+        html_str = ''
+        html_start = self.gen_start()
         html_end = self.gen_end()
-        html_str = f'{html_str}{html_end}'
+        # marks = pinyin(chars, heteronym=True)
+        marks = pinyin(chars)
+        i, j = 0, 0
+        paragraphs = ''
+        paragraph = ''
+        p_start = '<p>'
+        p_end = '</p>'
+        p_open = False
+        for char in chars:
+            span = self.gen_span(char=char, mark=marks[i][0])
+            i += 1           
+            paragraph = f'{paragraph}{span}'
+            if j == 0:
+                paragraph = f'{p_start}{paragraph}'
+                p_open = True
+                print(f'{i} {j}: p_open')
+            elif j == number - 1:
+                paragraph = f'{paragraph}{p_end}'
+                paragraphs = f'{paragraphs}{paragraph}'
+                p_open = False
+                print(f'{i} {j}: p_close')
+                j = -1
+            j += 1
+        if p_open:
+            paragraphs = f'{paragraphs}{p_end}'
+            print(f'{i} {j}: The final p_close')
+
+        html_str = f'{html_start}{paragraph}{html_end}'
         return html_str
 
     def gen_html_heteronym(self, chars: str):
@@ -38,7 +68,7 @@ class Pinyin2h():
 <html>
 
 <body>
-    <div>        
+    <div style="text-align:center">        
         """
         return html_start
     
@@ -75,15 +105,26 @@ def test():
     span = p2h.gen_span(char = '你', mark =  mark[0][0])
     print(span)
 
-def main():
+def str2html(chars: str, number: int):
+    """
+            Args:
+                number: limit the number of chars in a line
+    """    
     p2h = Pinyin2h()
-    chars = '远看山有色'
+    # chars = '春眠不觉'
     out_dir = '../p2h_data'
-    os.mkdir(out_dir)
+    if not os.path.exists(out_dir):
+        os.mkdir(out_dir)
     out_file = os.path.join(out_dir, f'{chars[:20]}.html')
-    html = p2h.gen_html(chars=chars)
-    print(html)
-    p2h.dump_html(chars=chars, out_file=out_file)
+    # html = p2h.gen_html(chars=chars)
+    # print(html)
+    p2h.dump_html(chars=chars, number = number, out_file=out_file)
+    print(out_file)
+
+def main():
+    from database_gen import str_k1a
+    chars = str_k1a()
+    str2html(chars=chars, number=12)
 
 if __name__ =="__main__":
     main()
