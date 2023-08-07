@@ -139,7 +139,8 @@ class Pinyin2csv():
         for char in chars:
             marks = pinyin(char, heteronym=True)  # return list of list
             mark=marks[0]  # mark is type of list
-            print(i, char, mark)
+            if len(mark) > 1:
+                print(i, char, mark)
             i += 1           
             if j == 0:  # the beginning of a line
                 p_open = True
@@ -294,7 +295,7 @@ def main():
         '一日还两岸猿声啼不住轻舟已过万重山寻隐者不遇贾岛松下问童子言师采药去只在此山中云深不知处泊秦淮杜牧烟笼寒水月笼沙夜泊秦淮近酒家商女不知亡国恨'
     ]
     statics(strings)
-    return
+    # return
     chars = strings[-1]
     name = chars[-7:]
     str2csv(chars=chars, number=10, name = name)
