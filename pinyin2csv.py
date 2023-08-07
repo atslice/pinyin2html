@@ -6,15 +6,18 @@ class Pinyin2csv():
     def __init__(self) -> None:
         pass
 
-    def dump_html(self, chars: str, number: int, out_file = None):
+    def dump_html(self, chars: str, number: int, out_file = None, out_file_pinyin = None):
         """
             Args:
                 number: limit the number of chars in a line
         """        
         if out_file is None:
             return
+        csv_chars, csv_marks = self.gen_csv(chars=chars, number=number)
         with open(out_file, 'w') as writer:
-            writer.write(self.gen_csv(chars=chars, number=number))
+            writer.write(csv_chars)
+        with open(out_file_pinyin, 'w') as writer:
+            writer.write(csv_marks)            
 
     def gen_csv(self, chars: str, number: int):
         """
@@ -68,21 +71,6 @@ def test():
     span = p2h.gen_span(char = '你', mark =  mark[0][0])
     print(span)
 
-def str2html(chars: str, number: int):
-    """
-            Args:
-                number: limit the number of chars in a line
-    """    
-    p2h = Pinyin2h()
-    # chars = '春眠不觉'
-    out_dir = '../p2h_data'
-    if not os.path.exists(out_dir):
-        os.mkdir(out_dir)
-    out_file = os.path.join(out_dir, f'{chars[:20]}.html')
-    # html = p2h.gen_html(chars=chars)
-    # print(html)
-    p2h.dump_html(chars=chars, number = number, out_file=out_file)
-    print(out_file)
 
 def str2csv(chars: str, number: int):
     """
@@ -95,7 +83,8 @@ def str2csv(chars: str, number: int):
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
     out_file = os.path.join(out_dir, f'{chars[:20]}.csv')
-    p2h.dump_html(chars=chars, number = number, out_file=out_file)
+    out_file_pinyin = os.path.join(out_dir, f'{chars[:20]}_pinyin.csv')    
+    p2h.dump_html(chars=chars, number = number, out_file=out_file, out_file_pinyin = out_file_pinyin)
     print(out_file)
 
 def main():
