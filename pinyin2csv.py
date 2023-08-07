@@ -13,8 +13,10 @@ class Pinyin2csv():
         """        
         if out_dir is None:
             return
-        csv_chars, csv_marks, csv_marks_r = self.gen_csv(chars=chars, number=number)
         name = chars[:10] if out_name is None else out_name
+
+        # default mode
+        csv_chars, csv_marks, csv_marks_r = self.gen_csv(chars=chars, number=number)
         out_file_chars = os.path.join(out_dir, f'{name}_chars.csv')
         with open(out_file_chars, 'w') as writer:
             writer.write(csv_chars)
@@ -24,7 +26,19 @@ class Pinyin2csv():
         out_file_pinyin_r = os.path.join(out_dir, f'{name}_pinyin_r.csv')            
         with open(out_file_pinyin_r, 'w') as writer:
             writer.write(csv_marks_r)
-        print(out_file_pinyin_r)                         
+        print(out_file_pinyin_r)
+
+        # heteronym as reference
+        csv_marks, csv_marks_r = self.gen_heteronym_csv(chars=chars, number=number)
+        out_file_pinyin = os.path.join(out_dir, f'{name}_pinyin_heteronym.csv')            
+        with open(out_file_pinyin, 'w') as writer:
+            writer.write(csv_marks)
+        out_file_pinyin_r = os.path.join(out_dir, f'{name}_pinyin_heteronym_r.csv')            
+        with open(out_file_pinyin_r, 'w') as writer:
+            writer.write(csv_marks_r)
+        print(out_file_pinyin_r)        
+
+
 
     def gen_csv(self, chars: str, number: int):
         """
@@ -44,9 +58,10 @@ class Pinyin2csv():
         p_open = False
         for char in chars:
             mark=marks[i][0]
-            print(i, char, mark)
+            # print(i, char, mark)
             i += 1           
             if j == 0:  # the beginning of a line
+                p_open = True
                 csv_line = ''
                 csv_mark_line = ''
                 csv_mark_line_r = ''
@@ -58,14 +73,14 @@ class Pinyin2csv():
                 csv_mark_line = f'{csv_mark_line},'
                 csv_mark_line_r = f',{csv_mark_line_r}'              
             elif j == number - 1:  # the last char in a line
-                p_open = True
+                p_open = False
                 csv_line = f'{csv_line}\r\n'
                 csv_chars = f'{csv_chars}{csv_line}'
                 csv_mark_line = f'{csv_mark_line}\r\n'                
                 csv_marks = f'{csv_marks}{csv_mark_line}'
                 csv_mark_line_r = f'{csv_mark_line_r}\r\n'               
                 csv_marks_r = f'{csv_marks_r}{csv_mark_line_r}'              
-                print(f'{i} {j}: p_close')
+                # print(f'{i} {j}: p_close')
                 j = -1
             j += 1
         if p_open:
@@ -79,6 +94,53 @@ class Pinyin2csv():
             csv_marks = f'{csv_marks}{csv_mark_line}'
             csv_marks_r = f'{csv_marks_r}{csv_mark_line_r}'            
         return csv_chars, csv_marks, csv_marks_r
+
+    def gen_heteronym_csv(self, chars: str, number: int):
+        """
+            Args:
+                number: limit the number of chars in a line
+            Return: (str, str)
+        """
+        
+        i, j = 0, 0  # i counts the order of chars, j counts the order of a char in a line
+        csv_marks = ''
+        csv_mark_line = ''
+        csv_marks_r = ''  # reverse
+        csv_mark_line_r = ''        
+        p_open = False
+        for char in chars:
+            marks = pinyin(char, heteronym=True)  # return list of list
+            mark=marks[0]  # mark is type of list
+            print(i, char, mark)
+            i += 1           
+            if j == 0:  # the beginning of a line
+                p_open = True
+                csv_line = ''
+                csv_mark_line = ''
+                csv_mark_line_r = ''
+            csv_mark_line = f'{csv_mark_line}{mark}'
+            csv_mark_line_r = f'{mark}{csv_mark_line_r}'                
+            if j < number - 1:
+                csv_mark_line = f'{csv_mark_line},'
+                csv_mark_line_r = f',{csv_mark_line_r}'              
+            elif j == number - 1:  # the last char in a line
+                p_open = False
+                csv_mark_line = f'{csv_mark_line}\r\n'                
+                csv_marks = f'{csv_marks}{csv_mark_line}'
+                csv_mark_line_r = f'{csv_mark_line_r}\r\n'               
+                csv_marks_r = f'{csv_marks_r}{csv_mark_line_r}'              
+                # print(f'{i} {j}: p_close')
+                j = -1
+            j += 1
+        if p_open:
+            if j != 0:  # line not full
+                for k in range(number - j - 1):
+                    print(f'adding , {k}')
+                    csv_mark_line = f'{csv_mark_line},'
+                    csv_mark_line_r = f',{csv_mark_line_r}'
+            csv_marks = f'{csv_marks}{csv_mark_line}'
+            csv_marks_r = f'{csv_marks_r}{csv_mark_line_r}'            
+        return csv_marks, csv_marks_r
 
 
 
@@ -108,7 +170,7 @@ def str2csv(chars: str, number: int):
     p2h.dump_html(chars=chars, number = number, out_dir=out_dir, out_name = '回乡偶书')
 
 def main():
-    chars = '隔江犹唱后庭花回乡偶书其一贺知章离别家乡岁月多近来人事半消磨惟有门前'
+    chars = '隔江犹唱后庭花回乡偶书其一贺知章离别家乡岁月多近来人事半消磨惟有门前镜湖水春风不改旧时波回乡偶书其二贺知章少小离家老大回乡音无改鬓毛衰儿童相'
     str2csv(chars=chars, number=10)
 
 if __name__ =="__main__":
