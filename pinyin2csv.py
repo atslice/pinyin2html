@@ -20,12 +20,18 @@ class Pinyin2csv():
         out_file_chars = os.path.join(out_dir, f'{name}_chars.csv')
         with open(out_file_chars, 'w') as writer:
             writer.write(csv_chars)
+        out_file_chars_gb2312 = os.path.join(out_dir, f'{name}_chars_gb2312.csv')
+        with open(out_file_chars_gb2312, 'w', encoding='gb2312') as writer:
+            writer.write(csv_chars)            
         out_file_pinyin = os.path.join(out_dir, f'{name}_pinyin.csv')            
         with open(out_file_pinyin, 'w') as writer:
             writer.write(csv_marks)
         out_file_pinyin_r = os.path.join(out_dir, f'{name}_pinyin_r.csv')            
         with open(out_file_pinyin_r, 'w') as writer:
             writer.write(csv_marks_r)
+        out_file_pinyin_r_gb2312 = os.path.join(out_dir, f'{name}_pinyin_r_gb2312.csv')            
+        with open(out_file_pinyin_r_gb2312, 'w', encoding='gb2312') as writer:
+            writer.write(csv_marks_r)            
         print(out_file_pinyin_r)
 
         # heteronym as reference
@@ -156,7 +162,7 @@ def test():
     print(span)
 
 
-def str2csv(chars: str, number: int):
+def str2csv(chars: str, number: int, name: str):
     """
             Args:
                 number: limit the number of chars in a line
@@ -167,11 +173,13 @@ def str2csv(chars: str, number: int):
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
     print(f'There are {len(chars)} chars to be parsed.') 
-    p2h.dump_html(chars=chars, number = number, out_dir=out_dir, out_name = '回乡偶书')
+    p2h.dump_html(chars=chars, number = number, out_dir=out_dir, out_name = name)
 
 def main():
     chars = '隔江犹唱后庭花回乡偶书其一贺知章离别家乡岁月多近来人事半消磨惟有门前镜湖水春风不改旧时波回乡偶书其二贺知章少小离家老大回乡音无改鬓毛衰儿童相'
-    str2csv(chars=chars, number=10)
+    chars = '见不相识笑问客从何处来黄鹤楼送孟浩然之广陵故人西辞黄鹤楼烟花三月下扬州孤帆远影碧空尽唯见长江天际流李白暮江吟白居易一道残阳铺水中半江瑟瑟半江'
+    name = chars[-7:]
+    str2csv(chars=chars, number=10, name = name)
 
 if __name__ =="__main__":
     main()
