@@ -6,24 +6,31 @@ class Pinyin2csv():
     def __init__(self) -> None:
         pass
 
-    def dump_html(self, chars: str, number: int, out_file = None, out_file_pinyin = None):
+    def dump_html(self, chars: str, number: int, out_dir = None, out_name = None):
         """
             Args:
                 number: limit the number of chars in a line
         """        
-        if out_file is None:
+        if out_dir is None:
             return
-        csv_chars, csv_marks = self.gen_csv(chars=chars, number=number)
-        with open(out_file, 'w') as writer:
+        csv_chars, csv_marks, csv_marks_r = self.gen_csv(chars=chars, number=number)
+        name = chars[:10] if out_name is None else out_name
+        out_file_chars = os.path.join(out_dir, f'{name}_chars.csv')
+        with open(out_file_chars, 'w') as writer:
             writer.write(csv_chars)
+        out_file_pinyin = os.path.join(out_dir, f'{name}_pinyin.csv')            
         with open(out_file_pinyin, 'w') as writer:
-            writer.write(csv_marks)            
+            writer.write(csv_marks)
+        out_file_pinyin_r = os.path.join(out_dir, f'{name}_pinyin_r.csv')            
+        with open(out_file_pinyin_r, 'w') as writer:
+            writer.write(csv_marks_r)
+        print(out_file_pinyin_r)                         
 
     def gen_csv(self, chars: str, number: int):
         """
             Args:
                 number: limit the number of chars in a line
-            Return: (str, str)
+            Return: (str, str, str)
         """
         # marks = pinyin(chars, heteronym=True)
         marks = pinyin(chars)  # return list of list
@@ -32,31 +39,46 @@ class Pinyin2csv():
         csv_line = ''
         csv_marks = ''
         csv_mark_line = ''
-        p_open = True
+        csv_marks_r = ''  # reverse
+        csv_mark_line_r = ''        
+        p_open = False
         for char in chars:
             mark=marks[i][0]
+            print(i, char, mark)
             i += 1           
             if j == 0:  # the beginning of a line
                 csv_line = ''
                 csv_mark_line = ''
+                csv_mark_line_r = ''
             csv_line = f'{csv_line}{char}'
-            csv_mark_line = f'{csv_mark_line}{mark}'                
+            csv_mark_line = f'{csv_mark_line}{mark}'
+            csv_mark_line_r = f'{mark}{csv_mark_line_r}'                
             if j < number - 1:
                 csv_line = f'{csv_line},'
-                csv_mark_line = f'{csv_mark_line},'                
+                csv_mark_line = f'{csv_mark_line},'
+                csv_mark_line_r = f',{csv_mark_line_r}'              
             elif j == number - 1:  # the last char in a line
-                p_open = False
+                p_open = True
                 csv_line = f'{csv_line}\r\n'
                 csv_chars = f'{csv_chars}{csv_line}'
                 csv_mark_line = f'{csv_mark_line}\r\n'                
                 csv_marks = f'{csv_marks}{csv_mark_line}'
+                csv_mark_line_r = f'{csv_mark_line_r}\r\n'               
+                csv_marks_r = f'{csv_marks_r}{csv_mark_line_r}'              
                 print(f'{i} {j}: p_close')
                 j = -1
             j += 1
         if p_open:
+            if j != 0:  # line not full
+                for k in range(number - j - 1):
+                    print(f'adding , {k}')
+                    csv_line = f'{csv_line},'
+                    csv_mark_line = f'{csv_mark_line},'
+                    csv_mark_line_r = f',{csv_mark_line_r}'
             csv_chars = f'{csv_chars}{csv_line}'
             csv_marks = f'{csv_marks}{csv_mark_line}'
-        return csv_chars, csv_marks
+            csv_marks_r = f'{csv_marks_r}{csv_mark_line_r}'            
+        return csv_chars, csv_marks, csv_marks_r
 
 
 
@@ -82,13 +104,11 @@ def str2csv(chars: str, number: int):
     out_dir = '../p2h_data'
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
-    out_file = os.path.join(out_dir, f'{chars[:20]}.csv')
-    out_file_pinyin = os.path.join(out_dir, f'{chars[:20]}_pinyin.csv')    
-    p2h.dump_html(chars=chars, number = number, out_file=out_file, out_file_pinyin = out_file_pinyin)
-    print(out_file)
+    print(f'There are {len(chars)} chars to be parsed.') 
+    p2h.dump_html(chars=chars, number = number, out_dir=out_dir, out_name = '回乡偶书')
 
 def main():
-    chars = '隔江犹唱后庭花回乡偶书其一贺知章离别家乡岁月多近来人事半消磨'
+    chars = '隔江犹唱后庭花回乡偶书其一贺知章离别家乡岁月多近来人事半消磨惟有门前'
     str2csv(chars=chars, number=10)
 
 if __name__ =="__main__":
