@@ -1,6 +1,6 @@
 # import re
 import os
-# import json
+import json
 
 def mkdir(path: str):
     path = path.strip()
@@ -54,6 +54,24 @@ def str_k1a():
 def test1():
     chars = str_k1a()
     print(chars)
+    print(f'There are {len(chars)} chars in total')
+    unique_chars = set()
+    for char in chars:
+        unique_chars.add(char)
+    print(f'There are {len(unique_chars)} unique chars in total')
+    unique_string = ''
+    for char in unique_chars:
+        unique_string += char
+    out_dir = '../p2h_data'
+    if not os.path.exists(out_dir):
+        os.mkdir(out_dir)
+    out_file = os.path.join(out_dir, 'chars_k1a.json')
+    chars_statics = {
+        'k1a_chars_num': len(unique_chars),
+        'k1a_chars': unique_string
+    }
+    with open(out_file, 'w', encoding='utf-8') as writer:
+        json.dump(chars_statics, writer, indent=4, ensure_ascii=False)    
 
 def main():
     # strip_str()
