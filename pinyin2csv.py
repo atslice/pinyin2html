@@ -1,7 +1,7 @@
 import os
 import json
 import codecs
-# from pypinyin import pinyin, Style
+from pypinyin import pinyin, Style
 from pinyin2html import Pinyin2h
 
 class Pinyin2csv():
@@ -173,16 +173,13 @@ class Pinyin2csv():
 
 
 def test():
-    p2h = Pinyin2h()
     cnchar = '一个人'
     mark = pinyin(cnchar, heteronym=True)  # heteronym=True 启用多音字模式
-    # 多音字模式: '一' -> [['yī', 'yí', 'yì']]
-    # heteronym=False  ‘一' -> [['yī']]
+    # heteronym=True, 多音字模式: '一' -> [['yī', 'yí', 'yì']]
+    # heteronym=True, 即使启用多音字模式, '一个人' -> [['yí'], ['gè'], ['rén']]
+    # heteronym=False, 非多音字模式:  ‘一' -> [['yī']]
     print(mark)  # 即使启用多音字模式, '一个人' -> [['yí'], ['gè'], ['rén']]
     print(type(mark))
-    span = p2h.gen_span(char = '你', mark =  mark[0][0])
-    print(span)
-
 
 def str2csv(chars: str, number: int, name: str):
     """
@@ -197,11 +194,40 @@ def str2csv(chars: str, number: int, name: str):
     print(f'There are {len(chars)} chars to be parsed.') 
     p2h.dump_html(chars=chars, number = number, out_dir=out_dir, out_name = name)
 
+def load_json(_file):
+    with open(_file, 'r') as reader:
+        return json.load(reader)
+
+def relation(str1, str2):
+    """
+        Args:
+            str1: str
+            str2: str
+        Return: (str, str, str)
+            (covered, uncovered, chars_over)
+            covered: the chars which are both in str1 and str2 交集
+            uncovered: the chars which are in str1 but not in str2
+            chars_over: the chars which are in str2 but not in str1
+    """
+    covered = ''
+    uncovered = ''    
+    for char in str1:
+        if char in str2:
+            covered += char
+        else:
+            uncovered += char
+    chars_over = ''
+    for char in str2:
+        if not char in str1:
+            chars_over += char
+    return covered, uncovered, chars_over
+
 def statics(strings):
     """
         Args:
             strings: list of str
     """
+
     all_string = ''
     for string in strings:
         all_string += string
@@ -213,15 +239,47 @@ def statics(strings):
     unique_string = ''
     for char in unique_chars:
         unique_string += char
+
+    k1a_json = 'database/k1a.json'
+    k1a_statics = load_json(k1a_json)
+    k1a_chars = k1a_statics['k1a']['chars']  # str, unique chars
+    k1a_covered, k1a_uncovered, chars_over_k1a = relation(k1a_chars, unique_string)
+
+    k1_json = 'database/k1.json'
+    k1_statics = load_json(k1_json)
+    k1_chars = k1_statics['k1']['chars']  # str, unique chars
+    k1_covered, k1_uncovered, chars_over_k1 = relation(k1_chars, unique_string)    
+
+
     out_dir = '../p2h_data'
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
     out_file = os.path.join(out_dir, 'chars_statics.json')
     chars_statics = {
         'chars_num': len(all_string),
+        'chars': all_string,        
         'unique_chars_num': len(unique_chars),
-        'chars': all_string,
-        'unique_chars': unique_string
+        'unique_chars': unique_string,
+        'k1a': {
+            'chars_num': len(k1a_chars),
+            'chars': k1a_chars,
+            'covered_num': len(k1a_covered),
+            'covered': k1a_covered,
+            'uncovered_num': len(k1a_uncovered),
+            'uncovered': k1a_uncovered,
+            'chars_over_num': len(chars_over_k1a),
+            'chars_over_': chars_over_k1a,
+        },
+        'k1': {
+            'chars_num': len(k1_chars),
+            'chars': k1_chars,
+            'covered_num': len(k1_covered),
+            'covered': k1_covered,
+            'uncovered_num': len(k1_uncovered),
+            'uncovered': k1_uncovered,
+            'chars_over_num': len(chars_over_k1),
+            'chars_over_': chars_over_k1,           
+        }
     }
     with codecs.open(out_file, 'w', encoding='utf-8') as writer:
         json.dump(chars_statics, writer, indent=4, ensure_ascii=False)
