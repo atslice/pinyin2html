@@ -1,5 +1,6 @@
 import os
-from pypinyin import pinyin, Style
+import json
+# from pypinyin import pinyin, Style
 from pinyin2html import Pinyin2h
 
 class Pinyin2csv():
@@ -207,7 +208,28 @@ def statics(strings):
     unique_chars = set()
     for char in all_string:
         unique_chars.add(char)
-    print(f'There are {len(unique_chars)} unique chars in total')        
+    print(f'There are {len(unique_chars)} unique chars in total')
+    unique_string = ''
+    for char in unique_chars:
+        unique_string += char
+    out_dir = '../p2h_data'
+    if not os.path.exists(out_dir):
+        os.mkdir(out_dir)
+    out_file = os.path.join(out_dir, 'chars_statics.json')
+    chars_statics = {
+        'chars_num': len(all_string),
+        'unique_chars_num': len(unique_chars),
+        'chars': all_string,
+        'unique_chars': unique_string,
+        'unique_chars_fmt': f'{unique_string}'
+    }
+    with open(out_file, 'w', encoding='utf-8') as writer:
+        json.dump(chars_statics, writer, indent=4)
+    out_file = os.path.join(out_dir, 'chars_statics_gb2312.json')        
+    with open(out_file, 'w', encoding='gb2312') as writer:
+        json.dump(chars_statics, writer, indent=4)        
+
+    
 
 def main():
     strings = [
