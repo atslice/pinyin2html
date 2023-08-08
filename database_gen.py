@@ -218,15 +218,17 @@ def gen_db(source_dir):
     out_dir = '../p2h_data'
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
-    out_file = os.path.join(out_dir, f'k12.json')    
+    out_file = os.path.join(out_dir, f'sum.json')    
     dump_json(_dict = chars_k12, out_file=out_file)
 
 def main():
     # strip_str()
     # source_dir = 'source/people'  # 人教版
     # source_dir = 'source/beijing/know'  # 北师大版识字表
+    # source_dir = 'source/beijing/write'  # 北师大版写字表
     # gen_db(source_dir = 'source/people') # 人教版
-    gen_db(source_dir = 'source/beijing/know')  # 北师大版识字表
+    # gen_db(source_dir = 'source/beijing/know')  # 北师大版识字表
+    gen_db(source_dir = 'source/beijing/write')  # 北师大版写字表
 
 if __name__ == "__main__":
     main()
