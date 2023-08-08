@@ -146,7 +146,14 @@ def relation(str1, str2):
     return covered, uncovered, chars_over
 
 def test1():
-    k12 = ['k1a', 'k1s', 'k2a']
+    k12 = []
+    for num in range(1, 7):
+        autumn = f'k{num}a'
+        spring = f'k{num}s'
+        k12.append(autumn)
+        k12.append(spring)
+    print(k12)
+    # k12 = ['k1a', 'k1s', 'k2a']
     chars_k12 = {}
     for name in k12:
         chars = str_k12(name=name)
@@ -156,15 +163,19 @@ def test1():
             'chars': chars
         }
 
-    chars_k1 = chars_k12['k1a']['chars'] + chars_k12['k1s']['chars']
-    write_database_order(chars=chars_k1, name='k1')
-    covered, uncovered, chars_over = relation(chars_k12['k1a']['chars'], chars_k12['k1s']['chars'])
-    print(f'covered: {covered}')
+    for num in range(1, 7):
+        autumn = f'k{num}a'
+        spring = f'k{num}s'
+        chars_k_num = chars_k12[autumn]['chars'] + chars_k12[spring]['chars']
+        k_num = f'k{num}'
+        write_database_order(chars=chars_k_num, name=k_num)
+        covered, uncovered, chars_over = relation(chars_k12[autumn]['chars'], chars_k12[spring]['chars'])
+        print(f'covered: {covered}')
 
-    chars_k12['k1'] = {
-            'quantity': len(chars_k1),
-            'chars': chars_k1
-        }
+        chars_k12[k_num] = {
+            'quantity': len(chars_k_num),
+            'chars': chars_k_num
+            }
     out_dir = '../p2h_data'
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
