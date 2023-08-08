@@ -145,7 +145,7 @@ def relation(str1, str2):
 
 def unique(_str):
     """
-        remove duplicated chars in string
+        remove duplicated chars in string, keep original order
         Args:
             _str: str
         Return: str
