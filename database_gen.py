@@ -102,7 +102,7 @@ def write_database_order(chars, name):
         if not char in unique_chars:
             unique_chars += char
     print(f'There are {len(unique_chars)} unique chars in total')
-    print(unique_chars)      
+    # print(unique_chars)      
     out_dir = '../p2h_data'
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
@@ -170,12 +170,33 @@ def test1():
         k_num = f'k{num}'
         write_database_order(chars=chars_k_num, name=k_num)
         covered, uncovered, chars_over = relation(chars_k12[autumn]['chars'], chars_k12[spring]['chars'])
-        print(f'covered: {covered}')
+        print(f'num = {num}, covered: {covered}')
 
         chars_k12[k_num] = {
             'quantity': len(chars_k_num),
             'chars': chars_k_num
             }
+        
+    for num in range(2, 7):
+        autumn = f'k{num}a'
+        spring = f'k{num}s'
+        k_num = f'k{num}'
+        k_num_pre = f'k{num - 1}'
+        k_1_to_num = f'k1-{num}'
+        k_1_to_num_pre = f'k1-{num - 1}'
+        chars_k_num = chars_k12[k_num]['chars']  # should unique them first     
+        if num == 2:
+            chars_k_num_pre = chars_k12[k_num_pre]['chars']
+            chars = chars_k_num + chars_k_num_pre
+        else:
+            chars_k_1_to_num_pre = chars_k12[k_1_to_num_pre]['chars']
+            chars = chars_k_num + chars_k_1_to_num_pre
+        print(len(chars))
+        chars_k12[k_1_to_num] = {
+            'quantity': len(chars),
+            'chars': chars
+            }        
+
     out_dir = '../p2h_data'
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
