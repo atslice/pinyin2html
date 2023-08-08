@@ -25,13 +25,14 @@ def load_string(_file):
     with open(_file, 'r') as reader:
         return reader.read()
 
-def str_k12(name):
+def str_k12(source_dir, name):
     """
         Args:
+            source_dir: str, the dir prefix for source
             name: str, the available values list ['k1a', 'k1s', 'k2a', 'k2s',...,'k12s']
         read string from k2a.txt and strip white chars, return the only Chinese chars
     """
-    txt_file = f'source/{name}.txt'
+    txt_file = f'{source_dir}/{name}.txt'
     string = load_string(txt_file)
     return unique(strip_string(string))
 
@@ -155,7 +156,13 @@ def unique(_str):
             new += char
     return new
 
-def gen_db():
+def gen_db(source_dir):
+    """
+        generate json files from txt files
+        Args:
+            source_dir: str, the dir prefix for source. In the dir, there are files named k1a.txt, k1s.txt, k2a.txt, k2s.txt, ...
+
+    """    
     k12 = []
     for num in range(1, 7):
         autumn = f'k{num}a'
@@ -166,7 +173,7 @@ def gen_db():
     # k12 = ['k1a', 'k1s', 'k2a']
     chars_k12 = {}
     for name in k12:
-        chars = str_k12(name=name)
+        chars = str_k12(source_dir=source_dir, name=name)
         write_database_order(chars=chars, name=name)
         chars_k12[name] = {
             'quantity': len(chars),
@@ -216,7 +223,10 @@ def gen_db():
 
 def main():
     # strip_str()
-    gen_db()
+    # source_dir = 'source/people'  # 人教版
+    # source_dir = 'source/beijing/know'  # 北师大版识字表
+    # gen_db(source_dir = 'source/people') # 人教版
+    gen_db(source_dir = 'source/beijing/know')  # 北师大版识字表
 
 if __name__ == "__main__":
     main()
