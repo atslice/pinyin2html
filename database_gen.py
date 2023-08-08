@@ -33,7 +33,7 @@ def str_k12(name):
     """
     txt_file = f'source/{name}.txt'
     string = load_string(txt_file)
-    return strip_string(string)
+    return unique(strip_string(string))
 
 
 
@@ -94,14 +94,11 @@ def write_database_order(chars, name):
             }
     """
 
-    # print(chars)
-    print(f'There are {len(chars)} chars in total')
-
     unique_chars = ''
     for char in chars:
         if not char in unique_chars:
             unique_chars += char
-    print(f'There are {len(unique_chars)} unique chars in total')
+    print(f'{name}: unique/total: {len(unique_chars)}/{len(chars)}')
     # print(unique_chars)      
     out_dir = '../p2h_data'
     if not os.path.exists(out_dir):
@@ -145,7 +142,20 @@ def relation(str1, str2):
             chars_over += char
     return covered, uncovered, chars_over
 
-def test1():
+def unique(_str):
+    """
+        remove duplicated chars in string
+        Args:
+            _str: str
+        Return: str
+    """
+    new = ''
+    for char in _str:
+        if not char in new:
+            new += char
+    return new
+
+def gen_db():
     k12 = []
     for num in range(1, 7):
         autumn = f'k{num}a'
@@ -166,11 +176,12 @@ def test1():
     for num in range(1, 7):
         autumn = f'k{num}a'
         spring = f'k{num}s'
-        chars_k_num = chars_k12[autumn]['chars'] + chars_k12[spring]['chars']
+        chars_k_num = unique(chars_k12[autumn]['chars'] + chars_k12[spring]['chars'])  # form chars for k_num, and remove duplicated chars
         k_num = f'k{num}'
         write_database_order(chars=chars_k_num, name=k_num)
         covered, uncovered, chars_over = relation(chars_k12[autumn]['chars'], chars_k12[spring]['chars'])
-        print(f'num = {num}, covered: {covered}')
+        if not covered == '':
+            print(f'num = {num}, covered: {covered}')
 
         chars_k12[k_num] = {
             'quantity': len(chars_k_num),
@@ -187,10 +198,10 @@ def test1():
         chars_k_num = chars_k12[k_num]['chars']  # should unique them first     
         if num == 2:
             chars_k_num_pre = chars_k12[k_num_pre]['chars']
-            chars = chars_k_num + chars_k_num_pre
+            chars =  unique(chars_k_num_pre + chars_k_num)  # form chars for k_1_to_num, and remove duplicated chars
         else:
             chars_k_1_to_num_pre = chars_k12[k_1_to_num_pre]['chars']
-            chars = chars_k_num + chars_k_1_to_num_pre
+            chars = unique(chars_k_1_to_num_pre + chars_k_num)  # form chars for k_1_to_num, and remove duplicated chars
         print(len(chars))
         chars_k12[k_1_to_num] = {
             'quantity': len(chars),
@@ -205,7 +216,7 @@ def test1():
 
 def main():
     # strip_str()
-    test1()
+    gen_db()
 
 if __name__ == "__main__":
     main()
