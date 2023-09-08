@@ -165,8 +165,8 @@ def gen_db(source_dir):
     """    
     k12 = []
     for num in range(1, 7):
-        autumn = f'k{num}a'
-        spring = f'k{num}s'
+        autumn = f'k{num}a'  # 小学秋季期，一年级至六年级, 从k1a到k6a
+        spring = f'k{num}s'  # 小学春季期，一年级至六年级, 从k1s到k6s
         k12.append(autumn)
         k12.append(spring)
     print(k12)
