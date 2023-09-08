@@ -22,8 +22,12 @@ def load_string(_file):
     """
         load string from file
     """
-    with open(_file, 'r') as reader:
-        return reader.read()
+    try:
+        with open(_file, 'r') as reader:
+            return reader.read()
+    except BaseException as e:
+        print(f'{format(e)}')
+        return ''
 
 def str_k12(source_dir, name):
     """
@@ -228,7 +232,9 @@ def main():
     # source_dir = 'source/beijing/write'  # 北师大版写字表
     # gen_db(source_dir = 'source/people') # 人教版
     # gen_db(source_dir = 'source/beijing/know')  # 北师大版识字表
-    gen_db(source_dir = 'source/beijing/write')  # 北师大版写字表
+    # gen_db(source_dir = 'source/beijing/write')  # 北师大版写字表
+    # gen_db(source_dir = 'source/people/know')  # 人教版识字表
+    gen_db(source_dir = 'source/people/write')  # 人教版写字表
 
 if __name__ == "__main__":
     main()
