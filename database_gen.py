@@ -213,7 +213,7 @@ def gen_db(source_dir):
         else:
             chars_k_1_to_num_pre = chars_k12[k_1_to_num_pre]['chars']
             chars = unique(chars_k_1_to_num_pre + chars_k_num)  # form chars for k_1_to_num, and remove duplicated chars
-        print(len(chars))
+        print(f'{k_1_to_num}: unique: {len(chars)}')
         chars_k12[k_1_to_num] = {
             'quantity': len(chars),
             'chars': chars
@@ -233,8 +233,8 @@ def main():
     # gen_db(source_dir = 'source/people') # 人教版
     # gen_db(source_dir = 'source/beijing/know')  # 北师大版识字表
     # gen_db(source_dir = 'source/beijing/write')  # 北师大版写字表
-    # gen_db(source_dir = 'source/people/know')  # 人教版识字表
-    gen_db(source_dir = 'source/people/write')  # 人教版写字表
+    gen_db(source_dir = 'source/people/know')  # 人教版识字表
+    # gen_db(source_dir = 'source/people/write')  # 人教版写字表
 
 if __name__ == "__main__":
     main()
