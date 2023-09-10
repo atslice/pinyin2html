@@ -5,8 +5,11 @@ def mkdir(path):
         os.makedirs(path)
 
 def format_txt():
+    """
+        remove white space and empty lines for text file, write the result to a new file
+    """
     strings = ''
-    with open('../data_p2h/k2a.txt', 'r') as reader:
+    with open('../data_p2h/raw.txt', 'r') as reader:
         strings = reader.readlines()
     # print(string)
     
