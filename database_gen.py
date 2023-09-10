@@ -227,9 +227,6 @@ def gen_db(source_dir):
 
 def main():
     # strip_str()
-    # source_dir = 'source/people'  # 人教版
-    # source_dir = 'source/beijing/know'  # 北师大版识字表
-    # source_dir = 'source/beijing/write'  # 北师大版写字表
     # gen_db(source_dir = 'source/people') # 人教版
     # gen_db(source_dir = 'source/beijing/know')  # 北师大版识字表
     # gen_db(source_dir = 'source/beijing/write')  # 北师大版写字表
