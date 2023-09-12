@@ -229,9 +229,9 @@ def main():
     # strip_str()
     # gen_db(source_dir = 'source/people') # 人教版
     # gen_db(source_dir = 'source/beijing/know')  # 北师大版识字表
-    # gen_db(source_dir = 'source/beijing/write')  # 北师大版写字表
+    gen_db(source_dir = 'source/beijing/write')  # 北师大版写字表
     # gen_db(source_dir = 'source/people/know')  # 人教版识字表, 注: 人教版六年级上下册没有识字表，只有写字表，这里把写字表复制到识字表
-    gen_db(source_dir = 'source/people/write')  # 人教版写字表
+    # gen_db(source_dir = 'source/people/write')  # 人教版写字表
 
 if __name__ == "__main__":
     main()
