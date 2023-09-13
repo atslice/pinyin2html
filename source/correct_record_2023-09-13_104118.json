@@ -1,0 +1,253 @@
+{
+    "wrong": [
+        {
+            "脫": {
+                "people_know": [
+                    "k2s"
+                ],
+                "people_write": [],
+                "beijing_know": [],
+                "beijing_write": []
+            }
+        },
+        {
+            "囪": {
+                "people_know": [
+                    "k2s"
+                ],
+                "people_write": [],
+                "beijing_know": [],
+                "beijing_write": []
+            }
+        },
+        {
+            "悅": {
+                "people_know": [
+                    "k2s",
+                    "k6a"
+                ],
+                "people_write": [
+                    "k6a"
+                ],
+                "beijing_know": [],
+                "beijing_write": []
+            }
+        },
+        {
+            "紹": {
+                "people_know": [
+                    "k3a"
+                ],
+                "people_write": [],
+                "beijing_know": [],
+                "beijing_write": []
+            }
+        },
+        {
+            "櫥": {
+                "people_know": [
+                    "k3s"
+                ],
+                "people_write": [],
+                "beijing_know": [],
+                "beijing_write": []
+            }
+        },
+        {
+            "拋": {
+                "people_know": [
+                    "k4a"
+                ],
+                "people_write": [
+                    "k5a"
+                ],
+                "beijing_know": [],
+                "beijing_write": []
+            }
+        },
+        {
+            "羨": {
+                "people_know": [
+                    "k4a"
+                ],
+                "people_write": [],
+                "beijing_know": [],
+                "beijing_write": []
+            }
+        },
+        {
+            "吶": {
+                "people_know": [
+                    "k5s"
+                ],
+                "people_write": [
+                    "k5s"
+                ],
+                "beijing_know": [],
+                "beijing_write": []
+            }
+        },
+        {
+            "戶": {
+                "people_know": [],
+                "people_write": [
+                    "k2s"
+                ],
+                "beijing_know": [],
+                "beijing_write": []
+            }
+        },
+        {
+            "內": {
+                "people_know": [],
+                "people_write": [
+                    "k3s"
+                ],
+                "beijing_know": [],
+                "beijing_write": []
+            }
+        },
+        {
+            "奧": {
+                "people_know": [],
+                "people_write": [
+                    "k4a"
+                ],
+                "beijing_know": [],
+                "beijing_write": []
+            }
+        }
+    ],
+    "correct": [
+        {
+            "脱": {
+                "people_know": [],
+                "people_write": [
+                    "k4a"
+                ],
+                "beijing_know": [
+                    "k3a"
+                ],
+                "beijing_write": [
+                    "k4s"
+                ]
+            }
+        },
+        {
+            "卤": {
+                "people_know": [],
+                "people_write": [],
+                "beijing_know": [],
+                "beijing_write": []
+            }
+        },
+        {
+            "悦": {
+                "people_know": [],
+                "people_write": [],
+                "beijing_know": [
+                    "k3s"
+                ],
+                "beijing_write": [
+                    "k3s"
+                ]
+            }
+        },
+        {
+            "绍": {
+                "people_know": [],
+                "people_write": [
+                    "k4s"
+                ],
+                "beijing_know": [
+                    "k3a"
+                ],
+                "beijing_write": [
+                    "k4s"
+                ]
+            }
+        },
+        {
+            "橱": {
+                "people_know": [],
+                "people_write": [],
+                "beijing_know": [
+                    "k6a"
+                ],
+                "beijing_write": []
+            }
+        },
+        {
+            "抛": {
+                "people_know": [],
+                "people_write": [],
+                "beijing_know": [
+                    "k4a"
+                ],
+                "beijing_write": [
+                    "k4a"
+                ]
+            }
+        },
+        {
+            "羡": {
+                "people_know": [],
+                "people_write": [],
+                "beijing_know": [
+                    "k3a"
+                ],
+                "beijing_write": []
+            }
+        },
+        {
+            "呐": {
+                "people_know": [],
+                "people_write": [],
+                "beijing_know": [],
+                "beijing_write": []
+            }
+        },
+        {
+            "户": {
+                "people_know": [
+                    "k2s"
+                ],
+                "people_write": [],
+                "beijing_know": [
+                    "k1a"
+                ],
+                "beijing_write": [
+                    "k1a"
+                ]
+            }
+        },
+        {
+            "内": {
+                "people_know": [
+                    "k3s"
+                ],
+                "people_write": [],
+                "beijing_know": [
+                    "k2s"
+                ],
+                "beijing_write": [
+                    "k2s"
+                ]
+            }
+        },
+        {
+            "奥": {
+                "people_know": [
+                    "k4a"
+                ],
+                "people_write": [],
+                "beijing_know": [
+                    "k3a"
+                ],
+                "beijing_write": [
+                    "k5a"
+                ]
+            }
+        }
+    ]
+}
