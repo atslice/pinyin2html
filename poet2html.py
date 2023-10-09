@@ -1,5 +1,6 @@
 import os
 from pypinyin import pinyin, Style
+from pyjsonlib import  load_json, dump_json
 
 class Pinyin2h():
     def __init__(self) -> None:
@@ -121,11 +122,39 @@ def str2html(chars: str, number: int):
     p2h.dump_html(chars=chars, number = number, out_file=out_file)
     print(out_file)
 
+def poets2html(poets):
+    """
+        Args:
+            poets: list of dict
+        Example:
+    [   {
+        "author": "孟浩然",
+        "paragraphs": [
+            "春眠不覺曉，處處聞啼鳥。",
+            "夜來風雨聲，花落知多少。"
+        ],
+        "tags": [
+            "唐诗三百首",
+            "春",
+            "写景",
+            "一年级下册",
+            "惜春",
+            "五言绝句",
+            "小学古诗"
+        ],
+        "title": "春曉",
+        "id": "cb168b3b-d104-4df7-9868-1e1225ddb941"
+        },
+    ]
+    """
+
 def main():
     # from database_gen import str_k1a
     # chars = str_k1a()
-    chars = '春曉孟浩然春眠不覺曉處處聞啼鳥夜來風雨聲花落知多少'
-    str2html(chars=chars, number=12)
+    # chars = '春曉孟浩然春眠不覺曉處處聞啼鳥夜來風雨聲花落知多少'
+    input_json = 'input/孟浩然_春.json'
+    poets = load_json(input_json) # list
+    poets2html(poets)
 
 if __name__ =="__main__":
     main()
