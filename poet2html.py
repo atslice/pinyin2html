@@ -1,6 +1,7 @@
 import os
 from pypinyin import pinyin, Style
 from pyjsonlib import  load_json, dump_json
+from pyiolib import makedirs
 
 class Pinyin2h():
     def __init__(self) -> None:
@@ -15,6 +16,90 @@ class Pinyin2h():
             return
         with open(out_file, 'w') as writer:
             writer.write(self.gen_html(chars=chars, number=number))
+
+    def dump_poets_html(self, poets: list, out_file = None):
+        """
+            Args:
+            poets: list of dict
+        Example:
+    [   {
+        "author": "孟浩然",
+        "paragraphs": [
+            "春眠不覺曉，處處聞啼鳥。",
+            "夜來風雨聲，花落知多少。"
+        ],
+        "tags": [
+            "唐诗三百首",
+            "春",
+            "写景",
+            "一年级下册",
+            "惜春",
+            "五言绝句",
+            "小学古诗"
+        ],
+        "title": "春曉",
+        "id": "cb168b3b-d104-4df7-9868-1e1225ddb941"
+        },
+    ]
+        """        
+        if out_file is None:
+            return
+        with open(out_file, 'w') as writer:
+            writer.write(self.gen_poets_html(poets))
+
+    def gen_poets_html(self, poets):
+        """
+            Args:
+                poets: list of dict
+        """
+        html_str = ''
+        html_start = self.gen_start()
+        html_end = self.gen_end()
+        poets_html = ''
+        for poet in poets:
+            poet_html = self.gen_poet_html(poet)
+            poets_html += poet_html
+        html_str = f'{html_start}{poets_html}{html_end}'
+        return html_str
+
+    def gen_poet_html(self, poet):
+        """
+            Args:
+                poet: dict
+        """
+        html_str = ''
+        title = poet['title']
+        author = poet['author']
+        paragraphs = poet['paragraphs']
+
+        title_paragraph = self.gen_paragrah_html(chars=title)
+        author_paragraph = self.gen_paragrah_html(chars=author)
+        poet_paragraphs = ''
+        for paragraph in paragraphs:
+            poet_paragraph = self.gen_paragrah_html(chars=paragraph)  # TODO 需要处理标点符号
+            poet_paragraphs += poet_paragraph
+        html_str = f'{title_paragraph}{author_paragraph}'
+        return html_str
+
+    def gen_paragrah_html(self, chars):
+        """
+            generate html paragrah with pinyin span
+            Args:
+                chars: str, only Chinese chars
+        """
+        paragraph = ''
+        # marks = pinyin(chars, heteronym=True)
+        marks = pinyin(chars)  # list of list, 非多音字模式。 TO-DO: 找出多音字，并作出提示
+        p_start = '<p>'
+        p_end = '</p>'
+        i = 0
+        for char in chars:
+            span = self.gen_span(char=char, mark=marks[i][0]) #  i 对应汉字字符
+            i += 1      
+            paragraph = f'{paragraph}{span}'
+        paragraph = f'{p_start}{paragraph}{p_end}'
+        return paragraph
+
 
     def gen_html(self, chars: str, number: int):
         """
@@ -106,25 +191,11 @@ def test():
     span = p2h.gen_span(char = '你', mark =  mark[0][0])
     print(span)
 
-def str2html(chars: str, number: int):
-    """
-            Args:
-                number: limit the number of chars in a line
-    """    
-    p2h = Pinyin2h()
-    # chars = '春眠不觉'
-    out_dir = '../p2h_data'
-    if not os.path.exists(out_dir):
-        os.mkdir(out_dir)
-    out_file = os.path.join(out_dir, f'{chars[:20]}.html')
-    # html = p2h.gen_html(chars=chars)
-    # print(html)
-    p2h.dump_html(chars=chars, number = number, out_file=out_file)
-    print(out_file)
 
-def poets2html(poets):
+def poets2html(out_file, poets):
     """
         Args:
+            out_file: str, the path to store to result file
             poets: list of dict
         Example:
     [   {
@@ -147,14 +218,21 @@ def poets2html(poets):
         },
     ]
     """
+    p2h = Pinyin2h()
+    p2h.dump_poets_html(poets=poets, out_file=out_file)
+    print(out_file)    
 
 def main():
-    # from database_gen import str_k1a
-    # chars = str_k1a()
-    # chars = '春曉孟浩然春眠不覺曉處處聞啼鳥夜來風雨聲花落知多少'
+    # load input file
     input_json = 'input/孟浩然_春.json'
     poets = load_json(input_json) # list
-    poets2html(poets)
+
+    out_dir = '../p2h_data'
+    makedirs(out_dir)
+
+    base_name = os.path.basename(input_json)
+    out_file = os.path.join(out_dir, f'{base_name}.html')
+    poets2html(out_file, poets)
 
 if __name__ =="__main__":
     main()
