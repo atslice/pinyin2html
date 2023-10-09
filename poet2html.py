@@ -78,7 +78,7 @@ class Pinyin2h():
         for paragraph in paragraphs:
             poet_paragraph = self.gen_paragrah_html(chars=paragraph)  # TODO 需要处理标点符号
             poet_paragraphs += poet_paragraph
-        html_str = f'{title_paragraph}{author_paragraph}'
+        html_str = f'{title_paragraph}{author_paragraph}{poet_paragraphs}'
         return html_str
 
     def gen_paragrah_html(self, chars):
@@ -93,8 +93,11 @@ class Pinyin2h():
         p_start = '<p>'
         p_end = '</p>'
         i = 0
+        biaodian = '，。'
         for char in chars:
-            span = self.gen_span(char=char, mark=marks[i][0]) #  i 对应汉字字符
+            mark = marks[i][0]
+            mark = '' if char in biaodian else mark   #  标点符号则不注拼音。 下面代码结果同: '' if mark in biaodian else mark
+            span = self.gen_span(char=char, mark=mark) #  i 对应汉字字符
             i += 1      
             paragraph = f'{paragraph}{span}'
         paragraph = f'{p_start}{paragraph}{p_end}'
