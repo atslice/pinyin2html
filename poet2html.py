@@ -8,6 +8,10 @@ class Pinyin2h():
         self.kaiti_style = """
 style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;AR PL UKai CN&quot;, &quot;AR PL UKai HK&quot;, &quot;AR PL UKai TW&quot;, &quot;AR PL UKai TW MBE&quot;, &quot;AR PL KaitiM GB&quot;, KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai, web-fz;"        
         """
+        self.style_after_page = 'style="page-break-before: always;"'
+        self.style_page_head = 'style="height: 116px; line-height: 136px; font-size: 32px; text-align: center; display: none;"'
+        self.div_page_head = f'<div {self.style_page_head}></div>'
+        self.div_after_page = f'\n<div {self.style_after_page}>{self.div_page_head}</div>'   # page break per poet
 
     def dump_html(self, chars: str, number: int, out_file = None):
         """
@@ -60,6 +64,7 @@ style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;
         poets_html = ''
         for poet in poets:
             poet_html = self.gen_poet_html(poet)
+            poet_html += self.div_after_page
             poets_html += poet_html
         html_str = f'{html_start}{poets_html}{html_end}'
         return html_str
@@ -127,7 +132,7 @@ style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;
                 span = self.gen_span(char=char, mark=mark) #  i 对应汉字字符
                 i += 1      
             paragraph = f'{paragraph}{span}'
-        paragraph = f'{p_start}{paragraph}{p_end}'
+        paragraph = f'\n{p_start}{paragraph}{p_end}'
         return paragraph
 
     def gen_html(self, chars: str, number: int):
