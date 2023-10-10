@@ -72,6 +72,7 @@ class Pinyin2h():
         author = poet['author']
         paragraphs = poet['paragraphs']
 
+        print(title)
         title_paragraph = self.gen_paragrah_html(chars=title)
         author_paragraph = self.gen_paragrah_html(chars=author)
         poet_paragraphs = ''
@@ -87,18 +88,42 @@ class Pinyin2h():
             Args:
                 chars: str, only Chinese chars
         """
+        def get_mark(i, marks):
+            """
+                Args:
+                    i: int
+                    marks: list
+                Return: (int, str)
+                取到非空拼音为止
+            """
+            mark = marks[i][0]
+            while ' ' in mark:
+                i += 1
+                mark = marks[i][0]
+            return i, mark
+            
         paragraph = ''
         # marks = pinyin(chars, heteronym=True)
-        marks = pinyin(chars)  # list of list, 非多音字模式。 TO-DO: 找出多音字，并作出提示
+        marks = pinyin(chars)  # list of list, 非多音字模式。如果chars里有连续空格的话，返回的列表长度与chars长度不一致。 TO-DO: 找出多音字，并作出提示
+        # print(f'chars: {len(chars)}, marks: {len(marks)}')
+        # print(marks)
+        # 商歌三首  其一
+        # [['shāng'], ['gē'], ['sān'], ['shǒu'], ['  '], ['qí'], ['yī']]
+        # 连续空格，则只返回对应空格, 多个空格合并为一个字符串放到一个列表里
+        # if ' ' in chars:
+        #    raise ValueError('stop by user')
         p_start = '<p>'
         p_end = '</p>'
         i = 0
         biaodian = '，。'
         for char in chars:
-            mark = marks[i][0]
-            mark = '' if char in biaodian else mark   #  标点符号则不注拼音。 下面代码结果同: '' if mark in biaodian else mark
-            span = self.gen_span(char=char, mark=mark) #  i 对应汉字字符
-            i += 1      
+            if char == ' ':  # char是空格，marks里没有对应的空列表，i不自加，否则会导致index越界
+                span = self.gen_span(char=' ', mark=' ')
+            else:
+                i, mark = get_mark(i, marks)  # 取到非空格拼音为止
+                mark = '' if char in biaodian else mark   #  标点符号则不注拼音。 下面代码结果同: '' if mark in biaodian else mark
+                span = self.gen_span(char=char, mark=mark) #  i 对应汉字字符
+                i += 1      
             paragraph = f'{paragraph}{span}'
         paragraph = f'{p_start}{paragraph}{p_end}'
         return paragraph
@@ -227,7 +252,8 @@ def poets2html(out_file, poets):
 
 def main():
     # load input file
-    input_json = 'input/孟浩然_春.json'
+    # input_json = 'input/孟浩然_春.json'
+    input_json = 'input/古诗接龙.json'
     poets = load_json(input_json) # list
 
     out_dir = '../p2h_data'
