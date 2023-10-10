@@ -5,7 +5,9 @@ from pyiolib import makedirs
 
 class Pinyin2h():
     def __init__(self) -> None:
-        pass
+        self.kaiti_style = """
+style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;AR PL UKai CN&quot;, &quot;AR PL UKai HK&quot;, &quot;AR PL UKai TW&quot;, &quot;AR PL UKai TW MBE&quot;, &quot;AR PL KaitiM GB&quot;, KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai, web-fz;"        
+        """
 
     def dump_html(self, chars: str, number: int, out_file = None):
         """
@@ -128,7 +130,6 @@ class Pinyin2h():
         paragraph = f'{p_start}{paragraph}{p_end}'
         return paragraph
 
-
     def gen_html(self, chars: str, number: int):
         """
             Args:
@@ -199,14 +200,14 @@ class Pinyin2h():
         module = """
         <span class="py-result-item">
             <ruby>
-                <span class="py-chinese-item">{汉}</span>
+                <span class="py-chinese-item" {style}>{汉}</span>
                 <rp>(</rp>
                 <rt class="py-pinyin-item">{hàn}</rt>
                 <rp>)</rp>
             </ruby>
         </span>        
         """
-        return module.format_map({'汉': char, 'hàn': mark})
+        return module.format_map({'style': self.kaiti_style, '汉': char, 'hàn': mark})
 
 def test():
     p2h = Pinyin2h()
@@ -250,18 +251,26 @@ def poets2html(out_file, poets):
     p2h.dump_poets_html(poets=poets, out_file=out_file)
     print(out_file)    
 
-def main():
+def json2html(input_json, name):
     # load input file
     # input_json = 'input/孟浩然_春.json'
-    input_json = 'input/古诗接龙.json'
+    # input_json = 'input/古诗接龙.json'
     poets = load_json(input_json) # list
 
     out_dir = '../p2h_data'
     makedirs(out_dir)
-
-    base_name = os.path.basename(input_json)
-    out_file = os.path.join(out_dir, f'{base_name}.html')
+    out_file = os.path.join(out_dir, f'{name}.html')
     poets2html(out_file, poets)
+
+def main():
+    # name = '古诗接龙'
+    # input_json = f'input/{name}.json'
+    # json2html(input_json, name)
+
+    name = '古诗接龙_simple'
+    input_json = f'input/{name}.json'
+    json2html(input_json, name)    
+
 
 if __name__ =="__main__":
     main()
