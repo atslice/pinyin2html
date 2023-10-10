@@ -5,11 +5,18 @@ from pyiolib import makedirs
 
 class Pinyin2h():
     def __init__(self) -> None:
-        self.kaiti_style = """
-style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;AR PL UKai CN&quot;, &quot;AR PL UKai HK&quot;, &quot;AR PL UKai TW&quot;, &quot;AR PL UKai TW MBE&quot;, &quot;AR PL KaitiM GB&quot;, KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai, web-fz;"        
-        """
+        self.kaiti_style = f'style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;AR PL UKai CN&quot;, &quot;AR PL UKai HK&quot;, &quot;AR PL UKai TW&quot;, &quot;AR PL UKai TW MBE&quot;, &quot;AR PL KaitiM GB&quot;, KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai, web-fz;'
+        h_font_size = '120px'
+        self.style_font_size_headline = f'style="font-size:{h_font_size};"'  # 标题的字体大小
+        p_font_size = '100px'
+        self.style_font_size = f'style="font-size:{p_font_size};"'
+        p_font_size_author = '80px'
+        self.style_font_size_author = f'style="font-size:{p_font_size_author};"'   # 作者段落的字体应设置比内容段落的字体稍小一点     
         self.style_after_page = 'style="page-break-before: always;"'
-        self.style_page_head = 'style="height: 116px; line-height: 136px; font-size: 32px; text-align: center; display: none;"'
+        # page_head_height = '116px'  #  116px is the default value
+        page_head_height = '300px'
+        # self.style_page_head = 'style="height: 116px; line-height: 136px; font-size: 32px; text-align: center; display: none;"'
+        self.style_page_head = f'style="height: {page_head_height}; line-height: 136px; font-size: 32px; text-align: center;"'
         self.div_page_head = f'<div {self.style_page_head}></div>'
         self.div_after_page = f'\n<div {self.style_after_page}>{self.div_page_head}</div>'   # page break per poet
 
@@ -62,6 +69,7 @@ style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;
         html_start = self.gen_start()
         html_end = self.gen_end()
         poets_html = ''
+        poets_html += self.div_page_head  # the page head div for the first page, to be the same with the other pages
         for poet in poets:
             poet_html = self.gen_poet_html(poet)
             poet_html += self.div_after_page
@@ -77,23 +85,53 @@ style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;
         html_str = ''
         title = poet['title']
         author = poet['author']
-        paragraphs = poet['paragraphs']
+        paragraphs_key = 'paragraphs'
+        paragraphs_key = 'paragraphs_break'  # one sentence each line
+        paragraphs = poet[paragraphs_key]
 
         print(title)
-        title_paragraph = self.gen_paragrah_html(chars=title)
-        author_paragraph = self.gen_paragrah_html(chars=author)
+        title_paragraph = self.gen_headline_html(chars=title, level=1, style_font_size=self.style_font_size_headline)
+        author_paragraph = self.gen_paragrah_html(chars=author, style_font_size=self.style_font_size_author)
         poet_paragraphs = ''
         for paragraph in paragraphs:
-            poet_paragraph = self.gen_paragrah_html(chars=paragraph)  # TODO 需要处理标点符号
+            poet_paragraph = self.gen_paragrah_html(chars=paragraph, style_font_size=self.style_font_size)  # TODO 需要处理标点符号
             poet_paragraphs += poet_paragraph
         html_str = f'{title_paragraph}{author_paragraph}{poet_paragraphs}'
         return html_str
 
-    def gen_paragrah_html(self, chars):
+    def gen_headline_html(self, chars, level = 1, style_font_size = ''):
         """
-            generate html paragrah with pinyin span
+            generate html headline with pinyin han span
             Args:
                 chars: str, only Chinese chars
+                level: int, from 1 to 6
+                style_font_size: str, the leagal style attribute of font-size
+        """
+        if not level in (1, 2, 3, 4, 5, 6):
+            raise ValueError('level must be int range from 1 to 6')
+        tag_start = f'<h{level} {style_font_size}>'
+        tag_end = f'</h{level}>'
+        spans = self.gen_pinyin_han(chars)
+        return f'\n{tag_start}{spans}{tag_end}'
+
+    def gen_paragrah_html(self, chars, style_font_size = ''):
+        """
+            generate html paragrah with pinyin han span
+            Args:
+                chars: str, only Chinese chars
+                style_font_size: str, the leagal style attribute of font-size
+        """     
+        tag_start = f'<p {style_font_size}>'
+        tag_end = '</p>'
+        spans = self.gen_pinyin_han(chars)
+        return f'\n{tag_start}{spans}{tag_end}'
+
+    def gen_pinyin_han(self, chars):
+        """
+            generate html pinyin han span
+            Args:
+                chars: str, only Chinese chars
+            Return: str: html spans
         """
         def get_mark(i, marks):
             """
@@ -109,18 +147,16 @@ style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;
                 mark = marks[i][0]
             return i, mark
             
-        paragraph = ''
+        spans = ''
         # marks = pinyin(chars, heteronym=True)
         marks = pinyin(chars)  # list of list, 非多音字模式。如果chars里有连续空格的话，返回的列表长度与chars长度不一致。 TO-DO: 找出多音字，并作出提示
         # print(f'chars: {len(chars)}, marks: {len(marks)}')
         # print(marks)
         # 商歌三首  其一
         # [['shāng'], ['gē'], ['sān'], ['shǒu'], ['  '], ['qí'], ['yī']]
-        # 连续空格，则只返回对应空格, 多个空格合并为一个字符串放到一个列表里
+        # 连续空格，则只返回对应空格, 多个空格合并为一个字符串放到一个列表里。如"商歌三首"后是两个空格，但只返回['  ']
         # if ' ' in chars:
         #    raise ValueError('stop by user')
-        p_start = '<p>'
-        p_end = '</p>'
         i = 0
         biaodian = '，。'
         for char in chars:
@@ -128,12 +164,11 @@ style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;
                 span = self.gen_span(char=' ', mark=' ')
             else:
                 i, mark = get_mark(i, marks)  # 取到非空格拼音为止
-                mark = '' if char in biaodian else mark   #  标点符号则不注拼音。 下面代码结果同: '' if mark in biaodian else mark
+                mark = '' if char in biaodian else mark   #  标点符号则不注拼音。 下面代码结果同: mark = '' if mark in biaodian else mark
                 span = self.gen_span(char=char, mark=mark) #  i 对应汉字字符
                 i += 1      
-            paragraph = f'{paragraph}{span}'
-        paragraph = f'\n{p_start}{paragraph}{p_end}'
-        return paragraph
+            spans = f'{spans}{span}'
+        return spans
 
     def gen_html(self, chars: str, number: int):
         """
@@ -272,7 +307,7 @@ def main():
     # input_json = f'input/{name}.json'
     # json2html(input_json, name)
 
-    name = '古诗接龙_simple'
+    name = '古诗接龙_break_simple'
     input_json = f'input/{name}.json'
     json2html(input_json, name)    
 

@@ -30,7 +30,7 @@ def convert2simple(poets: list):
 def main():
     # load input file
     # input_json = 'input/孟浩然_春.json'
-    name = '古诗接龙'
+    name = '古诗接龙_break'
     input_json = f'input/{name}.json'
     poets = load_json(input_json) # list
 

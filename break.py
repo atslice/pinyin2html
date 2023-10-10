@@ -1,18 +1,18 @@
 import os
 import copy
-from opencc import OpenCC
+# from opencc import OpenCC
 from pyjsonlib import  load_json, dump_json
 from pyiolib import makedirs
 
 
-def t2s(chars):
-    cc = OpenCC('t2s')  # 使用OpenCC转换繁体为简体
-    return cc.convert(chars)
-
 def paragraphs_break(_list: list):
     new_p = []
     for member in _list:
-        new_p.append(member)
+        members = member.split('，', maxsplit=2)
+        m1 = members[0] + '，'
+        m2 = members[1]
+        new_p.append(m1)
+        new_p.append(m2)
     return new_p
 
 def break_poet(poet: dict):
@@ -37,8 +37,8 @@ def main():
 
     out_dir = '../p2h_data'
     makedirs(out_dir)
-    out_file = os.path.join(out_dir, f'{name}_simple.json')
-    dump_json(_file=out_file, _dict=poets_simple)
+    out_file = os.path.join(out_dir, f'{name}_break.json')
+    dump_json(_file=out_file, _dict=poets_break)
 
 
 if __name__ =="__main__":
