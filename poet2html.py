@@ -6,17 +6,21 @@ from pyiolib import makedirs
 class Pinyin2h():
     def __init__(self) -> None:
         self.kaiti_style = f'style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;AR PL UKai CN&quot;, &quot;AR PL UKai HK&quot;, &quot;AR PL UKai TW&quot;, &quot;AR PL UKai TW MBE&quot;, &quot;AR PL KaitiM GB&quot;, KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai, web-fz;"'
-        h_font_size = '120px'
-        self.style_font_size_headline = f'style="font-size:{h_font_size};"'  # 标题的字体大小
-        p_font_size = '100px'
-        self.style_font_size = f'style="font-size:{p_font_size};"'
-        p_font_size_author = '80px'
-        self.style_font_size_author = f'style="font-size:{p_font_size_author};"'   # 作者段落的字体应设置比内容段落的字体稍小一点     
+        # "text-align:center"
+        h_font_size = '80px'
+        self.style_headline = f'style="font-size:{h_font_size}; text-align:center"'  # 标题的字体大小
+
+        p_font_size = '60px'
+        self.style_paragrah = f'style="font-size:{p_font_size}; text-align:center"'
+
+        p_font_size_author = '40px'
+        self.style_paragrah_author = f'style="font-size:{p_font_size_author}; text-align:center"'   # 作者段落的字体应设置比内容段落的字体稍小一点 
+
         self.style_after_page = 'style="page-break-before: always;"'
         # page_head_height = '116px'  #  116px is the default value
-        page_head_height = '300px'
-        # self.style_page_head = 'style="height: 116px; line-height: 136px; font-size: 32px; text-align: center; display: none;"'
-        self.style_page_head = f'style="height: {page_head_height}; line-height: 136px; font-size: 32px; text-align: center;"'
+        page_head_height = '116px'
+        self.style_page_head = f'style="height: {page_head_height}; line-height: 136px; font-size: 32px; text-align: center; display: none;"'
+        # self.style_page_head = f'style="height: {page_head_height}; line-height: 136px; font-size: 32px; text-align: center;"'
         self.div_page_head = f'<div {self.style_page_head}></div>'
         self.div_after_page = f'\n<div {self.style_after_page}>{self.div_page_head}</div>'   # page break per poet
 
@@ -90,39 +94,39 @@ class Pinyin2h():
         paragraphs = poet[paragraphs_key]
 
         print(title)
-        title_paragraph = self.gen_headline_html(chars=title, level=1, style_font_size=self.style_font_size_headline)
-        author_paragraph = self.gen_paragrah_html(chars=author, style_font_size=self.style_font_size_author)
+        title_paragraph = self.gen_headline_html(chars=title, level=1, style=self.style_headline)
+        author_paragraph = self.gen_paragrah_html(chars=author, style=self.style_paragrah_author)
         poet_paragraphs = ''
         for paragraph in paragraphs:
-            poet_paragraph = self.gen_paragrah_html(chars=paragraph, style_font_size=self.style_font_size)  # TODO 需要处理标点符号
+            poet_paragraph = self.gen_paragrah_html(chars=paragraph, style=self.style_paragrah)  # TODO 需要处理标点符号
             poet_paragraphs += poet_paragraph
         html_str = f'{title_paragraph}{author_paragraph}{poet_paragraphs}'
         html_str = f'<div class="poet">{html_str}</div>\n'
         return html_str
 
-    def gen_headline_html(self, chars, level = 1, style_font_size = ''):
+    def gen_headline_html(self, chars, level = 1, style = ''):
         """
             generate html headline with pinyin han span
             Args:
                 chars: str, only Chinese chars
                 level: int, from 1 to 6
-                style_font_size: str, the leagal style attribute of font-size
+                style: str, the leagal style attribute
         """
         if not level in (1, 2, 3, 4, 5, 6):
             raise ValueError('level must be int range from 1 to 6')
-        tag_start = f'<h{level} {style_font_size}>'
+        tag_start = f'<h{level} {style}>'
         tag_end = f'</h{level}>'
         spans = self.gen_pinyin_han(chars)
         return f'\n{tag_start}{spans}{tag_end}'
 
-    def gen_paragrah_html(self, chars, style_font_size = ''):
+    def gen_paragrah_html(self, chars, style = ''):
         """
             generate html paragrah with pinyin han span
             Args:
                 chars: str, only Chinese chars
-                style_font_size: str, the leagal style attribute of font-size
+                style: str, the leagal style attribute of font-size, text-align, etc
         """     
-        tag_start = f'<p {style_font_size}>'
+        tag_start = f'<p {style}>'
         tag_end = '</p>'
         spans = self.gen_pinyin_han(chars)
         return f'\n{tag_start}{spans}{tag_end}'
