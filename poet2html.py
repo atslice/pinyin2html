@@ -5,7 +5,7 @@ from pyiolib import makedirs
 
 class Pinyin2h():
     def __init__(self) -> None:
-        self.kaiti_style = f'style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;AR PL UKai CN&quot;, &quot;AR PL UKai HK&quot;, &quot;AR PL UKai TW&quot;, &quot;AR PL UKai TW MBE&quot;, &quot;AR PL KaitiM GB&quot;, KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai, web-fz;'
+        self.kaiti_style = f'style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;AR PL UKai CN&quot;, &quot;AR PL UKai HK&quot;, &quot;AR PL UKai TW&quot;, &quot;AR PL UKai TW MBE&quot;, &quot;AR PL KaitiM GB&quot;, KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai, web-fz;"'
         h_font_size = '120px'
         self.style_font_size_headline = f'style="font-size:{h_font_size};"'  # 标题的字体大小
         p_font_size = '100px'
@@ -97,6 +97,7 @@ class Pinyin2h():
             poet_paragraph = self.gen_paragrah_html(chars=paragraph, style_font_size=self.style_font_size)  # TODO 需要处理标点符号
             poet_paragraphs += poet_paragraph
         html_str = f'{title_paragraph}{author_paragraph}{poet_paragraphs}'
+        html_str = f'<div class="poet">{html_str}</div>\n'
         return html_str
 
     def gen_headline_html(self, chars, level = 1, style_font_size = ''):
@@ -219,11 +220,12 @@ class Pinyin2h():
         return html_str
 
     def gen_start(self):
+        # style="text-align:center"
         html_start = """
 <html>
 
 <body>
-    <div style="text-align:center">        
+    <div class="content">        
         """
         return html_start
     
