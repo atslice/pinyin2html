@@ -116,7 +116,7 @@ class Pinyin2h():
             poet_paragraph = self.gen_paragrah_html(chars=paragraph, style=self.style_paragrah)  # TODO 需要处理标点符号
             poet_paragraphs += poet_paragraph
         html_str = f'{title_paragraph}{author_paragraph}{poet_paragraphs}'
-        html_str = f'<div class="poet">{html_str}</div>\n'
+        html_str = f'\n<div class="poet">{html_str}</div>\n'
         return html_str
 
     def gen_headline_html(self, chars, level = 1, style = ''):
@@ -346,7 +346,7 @@ def main():
     makedirs(out_dir)    
     name = '古诗接龙_break_simple_add'
     input_json = f'input/middle/{name}.json'
-    json2html(input_json, name)    
+    json2html(out_dir, input_json, name)    
 
 
 if __name__ =="__main__":
