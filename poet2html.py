@@ -1,10 +1,14 @@
 import os
 from pypinyin import pinyin, Style
 from pyjsonlib import  load_json, dump_json
-from pyiolib import makedirs
+from pyiolib import makedirs, dump_str
 
 class Pinyin2h():
     def __init__(self) -> None:
+        self.__heteronym__ = {}  # 存储多音字，以诗词标题为key
+        self.__html__ = ''
+        self.poet_title = ''
+
         self.kaiti_style = f'style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;AR PL UKai CN&quot;, &quot;AR PL UKai HK&quot;, &quot;AR PL UKai TW&quot;, &quot;AR PL UKai TW MBE&quot;, &quot;AR PL KaitiM GB&quot;, KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai, web-fz;"'
         # "text-align:center"
         h_font_size = '80px'
@@ -24,6 +28,18 @@ class Pinyin2h():
         self.div_page_head = f'<div {self.style_page_head}></div>'
         self.div_after_page = f'\n<div {self.style_after_page}>{self.div_page_head}</div>'   # page break per poet
 
+    @property
+    def heteronym(self):
+        """
+            多音字列表字典
+        """
+        return self.__heteronym__
+
+    @property
+    def html(self):
+        """html 标记文本"""
+        return self.__html__
+
     def dump_html(self, chars: str, number: int, out_file = None):
         """
             Args:
@@ -34,7 +50,7 @@ class Pinyin2h():
         with open(out_file, 'w') as writer:
             writer.write(self.gen_html(chars=chars, number=number))
 
-    def dump_poets_html(self, poets: list, out_file = None):
+    def dump_poets_html(self, poets: list):
         """
             Args:
             poets: list of dict
@@ -59,10 +75,8 @@ class Pinyin2h():
         },
     ]
         """        
-        if out_file is None:
-            return
-        with open(out_file, 'w') as writer:
-            writer.write(self.gen_poets_html(poets))
+        html = self.gen_poets_html(poets)
+        self.__html__ = html
 
     def gen_poets_html(self, poets):
         """
@@ -88,6 +102,7 @@ class Pinyin2h():
         """
         html_str = ''
         title = poet['title']
+        self.poet_title = title
         author = poet['author']
         paragraphs_key = 'paragraphs'
         paragraphs_key = 'paragraphs_break'  # one sentence each line
@@ -131,6 +146,19 @@ class Pinyin2h():
         spans = self.gen_pinyin_han(chars)
         return f'\n{tag_start}{spans}{tag_end}'
 
+    def get_heteronym_list(self, chars):
+        """
+            Return: 多音字字典列表
+        """
+        if not self.poet_title in self.__heteronym__:
+            self.__heteronym__[self.poet_title] = []
+        for char in chars:
+            marks = pinyin(char, heteronym=True)
+            if len(marks) > 1:  # 有多个读音
+                self.__heteronym__[self.poet_title].append({
+                    char: marks
+                })
+
     def gen_pinyin_han(self, chars):
         """
             generate html pinyin han span
@@ -151,7 +179,8 @@ class Pinyin2h():
                 i += 1
                 mark = marks[i][0]
             return i, mark
-            
+
+        self.get_heteronym_list(chars)    
         spans = ''
         # marks = pinyin(chars, heteronym=True)
         marks = pinyin(chars)  # list of list, 非多音字模式。如果chars里有连续空格的话，返回的列表长度与chars长度不一致。 TO-DO: 找出多音字，并作出提示
@@ -255,6 +284,8 @@ class Pinyin2h():
         """
         return module.format_map({'style': self.kaiti_style, '汉': char, 'hàn': mark})
 
+
+
 def test():
     p2h = Pinyin2h()
     cnchar = '一个人'
@@ -267,10 +298,11 @@ def test():
     print(span)
 
 
-def poets2html(out_file, poets):
+def poets2html(out_dir, name, poets):
     """
         Args:
-            out_file: str, the path to store to result file
+            out_dir: str, the path to store to result files
+            name: str, the basename of file without extension
             poets: list of dict
         Example:
     [   {
@@ -294,19 +326,22 @@ def poets2html(out_file, poets):
     ]
     """
     p2h = Pinyin2h()
-    p2h.dump_poets_html(poets=poets, out_file=out_file)
+    p2h.dump_poets_html(poets=poets)
+    out_file = os.path.join(out_dir, f'{name}.html')
+    html = p2h.html
+    dump_str(_file=out_file, str=html)
+
+    heteronym = p2h.heteronym
+    heteronym_json = os.path.join(out_dir, f'{name}_heteronym.json')
+    dump_json(_file=heteronym_json, _dict=heteronym)
     print(out_file)    
 
 def json2html(input_json, name):
-    # load input file
-    # input_json = 'input/孟浩然_春.json'
-    # input_json = 'input/古诗接龙.json'
     poets = load_json(input_json) # list
 
     out_dir = '../p2h_data'
     makedirs(out_dir)
-    out_file = os.path.join(out_dir, f'{name}.html')
-    poets2html(out_file, poets)
+    poets2html(out_dir, name, poets)
 
 def main():
     # name = '古诗接龙'

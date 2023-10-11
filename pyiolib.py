@@ -14,6 +14,11 @@ def makedirs(_dir):
     if not os.path.exists(_dir):
         os.makedirs(_dir)
 
+def dump_str(_file, _str):
+    """dump str to file"""
+    with open(_file, 'w') as writer:
+        writer.write(_str)
+
 class Files():
     """
         methods for files operation
