@@ -15,7 +15,18 @@
             "小学古诗"
         ],
         "title": "春曉",
-        "id": "cb168b3b-d104-4df7-9868-1e1225ddb941"
+        "id": "cb168b3b-d104-4df7-9868-1e1225ddb941",
+        "time": "唐"       
+    },
+    {
+        "author": "朱熹",
+        "paragraphs": [
+            "少年易老學難成，一寸光陰不可輕。",
+            "未覺池塘春草夢，階前梧葉已秋聲。"
+        ],
+        "title": "勸學",
+        "time": "宋",
+        "id": ""
     },
     {
         "author": "李清照",
@@ -35,7 +46,8 @@
             "地名"
         ],
         "title": "夏日絕句",
-        "id": "ba2fe8ca-41aa-466a-b268-fa3526daafb5"
+        "id": "ba2fe8ca-41aa-466a-b268-fa3526daafb5",
+        "time": "宋"        
     },    
     {
         "author": "羅與之",
@@ -44,7 +56,8 @@
             "負薪花下過，燕語似譏人。"
         ],
         "title": "商歌三首  其一",
-        "id": "e97a3f2d-9ea6-4b60-ab01-3edb49eb2cb1"
+        "id": "e97a3f2d-9ea6-4b60-ab01-3edb49eb2cb1",
+        "time": "宋"
     },
     {
         "author": "白居易",
@@ -59,7 +72,18 @@
             "植物"
         ],
         "title": "大林寺桃花",
-        "id": "f5f726ac-2edd-44c1-bebf-1cc8476fad4c"
+        "id": "f5f726ac-2edd-44c1-bebf-1cc8476fad4c",
+        "time": "唐"
+    },
+    {
+        "author": "李映",
+        "paragraphs": [
+            "來客踏清溪，放歌伴玉笛。",
+            "袖舞晚霞輝，聲敲青山碧。"
+        ],
+        "title": "山間客訪",
+        "time": "五代",
+        "id": ""
     },
     {
         "author": "賀知章",
