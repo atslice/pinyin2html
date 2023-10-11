@@ -17,11 +17,12 @@ def list2simple(_list: list):
 def dict2simple(poet: dict):
     new_poet = copy.deepcopy(poet)
     for key, value in poet.items():
-        if type(value) is str:
+        added_key = f'{key}_simple'
+        if type(value) is str: 
             new_value = t2s(value)
-            new_poet[key] = new_value
+            new_poet[added_key] = new_value
         elif type(value) is list:
-            new_poet[key] = list2simple(value)
+            new_poet[added_key] = list2simple(value)
     return new_poet
 
 def convert2simple(poets: list):
@@ -36,7 +37,7 @@ def main():
 
     out_dir = 'input/middle'
     makedirs(out_dir)
-    out_file = os.path.join(out_dir, f'{name}_simple.json')
+    out_file = os.path.join(out_dir, f'{name}_simple_add.json')
     dump_json(_file=out_file, _dict=poets_simple)
 
 

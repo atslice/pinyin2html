@@ -35,7 +35,7 @@ def main():
 
     poets_break = break_poets(poets)
 
-    out_dir = '../p2h_data'
+    out_dir = 'input/middle'
     makedirs(out_dir)
     out_file = os.path.join(out_dir, f'{name}_break.json')
     dump_json(_file=out_file, _dict=poets_break)

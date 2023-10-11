@@ -337,20 +337,15 @@ def poets2html(out_dir, name, poets):
     dump_json(_file=heteronym_json, _dict=heteronym)
     print(out_file)    
 
-def json2html(input_json, name):
+def json2html(out_dir, input_json, name):
     poets = load_json(input_json) # list
-
-    out_dir = '../p2h_data'
-    makedirs(out_dir)
     poets2html(out_dir, name, poets)
 
 def main():
-    # name = '古诗接龙'
-    # input_json = f'input/{name}.json'
-    # json2html(input_json, name)
-
-    name = '古诗接龙_break_simple'
-    input_json = f'input/{name}.json'
+    out_dir = '../p2h_data'
+    makedirs(out_dir)    
+    name = '古诗接龙_break_simple_add'
+    input_json = f'input/middle/{name}.json'
     json2html(input_json, name)    
 
 
