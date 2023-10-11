@@ -153,10 +153,11 @@ class Pinyin2h():
         if not self.poet_title in self.__heteronym__:
             self.__heteronym__[self.poet_title] = []
         for char in chars:
-            marks = pinyin(char, heteronym=True)
-            if len(marks) > 1:  # 有多个读音
+            marks = pinyin(char, heteronym=True)  # '落' -> [['luò', 'là', 'lào', 'luō']];  '。' -> [['。']]
+            print(f'{char}: {len(marks[0])} {marks[0]}')
+            if len(marks[0]) > 1:  # 有多个读音
                 self.__heteronym__[self.poet_title].append({
-                    char: marks
+                    char: marks[0]
                 })
 
     def gen_pinyin_han(self, chars):
@@ -329,7 +330,7 @@ def poets2html(out_dir, name, poets):
     p2h.dump_poets_html(poets=poets)
     out_file = os.path.join(out_dir, f'{name}.html')
     html = p2h.html
-    dump_str(_file=out_file, str=html)
+    dump_str(_file=out_file, _str=html)
 
     heteronym = p2h.heteronym
     heteronym_json = os.path.join(out_dir, f'{name}_heteronym.json')
