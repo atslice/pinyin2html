@@ -26,7 +26,7 @@ mkdir -p $pro_dir
 cd $pro_dir
 pwd
 
-python3 poet2html.py $@
+python3 poet2html_final.py $@
 
 if [ -f /usr/app/pinyin-env/bin/activate ];then
     deactivate
