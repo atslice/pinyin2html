@@ -13,3 +13,8 @@ transform Chinese pinyin to html
 # poet2html.py
 这是重点。
 把诗词输出为带拼音的手机版pdf、简体A4打印版、简繁对照A4打印版
+
+# 异体字
+- [教育部moe.edu.tw异体字字典dict.variants.moe.edu.tw](https://dict.variants.moe.edu.tw/variants/rbt/word_attribute.rbt?educode=A02499)
+- [国际电脑汉字及异体字知识库chardb.iis.sinica.edu.tw](https://chardb.iis.sinica.edu.tw/meancompare/7282/7281)
+- [维基词典zh.wiktionary.org](https://zh.wiktionary.org/wiki/%E5%89%91)
