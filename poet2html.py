@@ -5,9 +5,11 @@ from pyiolib import makedirs, dump_str
 
 class Pinyin2h():
     def __init__(self) -> None:
+        self.__html_t__ = ''  # 繁体版手机版
+        self.__html_s__ = ''  # 简体版手机版
+        self.__html_cts__ = ''  # 繁简双排对照打印版
+        self.__html_cs__ = '' # 简体版双排打印版
         self.__heteronym__ = {}  # 存储多音字，以诗词标题为key
-        self.__html_t__ = ''
-        self.__html_s__ = ''
         self.poet_title = ''
 
     def init_for_phone(self):
@@ -30,6 +32,27 @@ class Pinyin2h():
         self.div_page_head = f'<div {self.style_page_head}></div>'
         self.div_after_page = f'\n<div {self.style_after_page}>{self.div_page_head}</div>'   # page break per poet
 
+    def init_for_pc(self):
+        self.kaiti_style = f'style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;AR PL UKai CN&quot;, &quot;AR PL UKai HK&quot;, &quot;AR PL UKai TW&quot;, &quot;AR PL UKai TW MBE&quot;, &quot;AR PL KaitiM GB&quot;, KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai, web-fz;"'
+        # "text-align:center"
+        h_font_size = '25px'
+        self.style_headline = f'style="font-size:{h_font_size}; text-align:center"'  # 标题的字体大小
+
+        p_font_size = '25px'
+        self.style_paragrah = f'style="font-size:{p_font_size}; text-align:center"'
+
+        p_font_size_author = '20px'
+        self.style_paragrah_author = f'style="font-size:{p_font_size_author}; text-align:center"'   # 作者段落的字体应设置比内容段落的字体稍小一点 
+
+        self.style_after_page = 'style="page-break-before: always;"'
+        # page_head_height = '116px'  #  116px is the default value
+        page_head_height = '116px'
+        self.style_page_head = f'style="height: {page_head_height}; line-height: 136px; font-size: 32px; text-align: center; display: none;"'
+        # self.style_page_head = f'style="height: {page_head_height}; line-height: 136px; font-size: 32px; text-align: center;"'
+        self.div_page_head = f'<div {self.style_page_head}></div>'
+        self.div_after_page = f'\n<div {self.style_after_page}>{self.div_page_head}</div>'   # page break per poet
+
+
     @property
     def heteronym(self):
         """
@@ -46,6 +69,16 @@ class Pinyin2h():
     def html_s(self):
         """html 标记文本"""
         return self.__html_s__
+
+    @property
+    def html_cts(self):
+        """html 标记文本"""
+        return self.__html_cts__
+
+    @property
+    def html_cs(self):
+        """html 标记文本"""
+        return self.__html_cs__
     
     def dump_poets_html(self, poets: list):
         """
@@ -81,15 +114,55 @@ class Pinyin2h():
                 poets: list of dict
         """
         html_start = self.gen_start()
-        html_end = self.gen_end()       
+        html_end = self.gen_end()
+
         # gen Traditional Chinese Edition
         html_t = self.gen_poets_html_t(poets)       
         self.__html_t__  = f'{html_start}{html_t}{html_end}'
 
         # gen Simplified Chinese Edition
         html_s = self.gen_poets_html_s(poets)       
-        self.__html_s__  = f'{html_start}{html_s}{html_end}'        
+        self.__html_s__  = f'{html_start}{html_s}{html_end}'
 
+        # gen Traditional vs Simplified Chinese Edition
+        html_cts = self.gen_poets_html_cts(poets)       
+        self.__html_cts__  = f'{html_start}{html_cts}{html_end}'
+
+        # gen Simplified vs Simplified Chinese Edition       
+
+    def get_poet_length(self, poet):
+        """统计当前诗有多少行"""
+        return len(poet['paragraphs_break'])
+
+    def gen_poets_html_cts(self, poets):
+        """gen Traditional Chinese Edition"""
+        poets_html = ''
+        self.init_for_pc()
+        poets_html += self.div_after_page  # the page head div for the first page, to be the same with the other pages
+        new_page = False
+        cache = True
+        for poet in poets:
+            length = self.get_poet_length(poet)   # 为节约纸张，如果接连两首诗都是四行，则合并在一页
+            poet_html_t = self.gen_poet_html(poet, edition='t')
+            poet_html_s = self.gen_poet_html(poet, edition='s')
+            div_horizonal= f'\n<div style="display: flex; justify-content: space-around">{poet_html_t}\n{poet_html_s}</div>\n'
+            poets_html += div_horizonal
+            if length >= 5:
+                new_page = True
+            else:
+                if cache:
+                    cache = False
+                    # insert blank height
+                    div_height = '\n<div style="height: 80px"></div>\n'
+                    poets_html += div_height
+                    continue
+                else:
+                    new_page = True
+                    cache = True
+            if new_page:
+                poets_html += self.div_after_page
+                new_page = False
+        return poets_html 
 
     def gen_poets_html_t(self, poets):
         """gen Traditional Chinese Edition"""
@@ -179,12 +252,12 @@ class Pinyin2h():
             Return: 多音字字典列表
         """
         if not self.poet_title in self.__heteronym__:
-            self.__heteronym__[self.poet_title] = []
+            self.__heteronym__[self.poet_title] = {}
         for char in chars:
             marks = pinyin(char, heteronym=True)  # '落' -> [['luò', 'là', 'lào', 'luō']];  '。' -> [['。']]
             print(f'{char}: {len(marks[0])} {marks[0]}')
             if len(marks[0]) > 1:  # 有多个读音
-                self.__heteronym__[self.poet_title].append({
+                self.__heteronym__[self.poet_title].update({
                     char: marks[0]
                 })
 
@@ -360,7 +433,10 @@ def poets2html(out_dir, name, poets):
     dump_str(_file=out_file, _str=p2h.html_t)
 
     out_file = os.path.join(out_dir, f'{name}_简体版.html')
-    dump_str(_file=out_file, _str=p2h.html_s)    
+    dump_str(_file=out_file, _str=p2h.html_s)
+
+    out_file = os.path.join(out_dir, f'{name}_繁简对照打印版.html')
+    dump_str(_file=out_file, _str=p2h.html_cts)  
 
     heteronym = p2h.heteronym
     heteronym_json = os.path.join(out_dir, f'{name}_heteronym.json')
