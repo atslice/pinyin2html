@@ -6,15 +6,17 @@ from pyiolib import makedirs, dump_str
 class Pinyin2h():
     def __init__(self) -> None:
         self.__heteronym__ = {}  # 存储多音字，以诗词标题为key
-        self.__html__ = ''
+        self.__html_t__ = ''
+        self.__html_s__ = ''
         self.poet_title = ''
 
+    def init_for_phone(self):
         self.kaiti_style = f'style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;AR PL UKai CN&quot;, &quot;AR PL UKai HK&quot;, &quot;AR PL UKai TW&quot;, &quot;AR PL UKai TW MBE&quot;, &quot;AR PL KaitiM GB&quot;, KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai, web-fz;"'
         # "text-align:center"
-        h_font_size = '80px'
+        h_font_size = '50px'
         self.style_headline = f'style="font-size:{h_font_size}; text-align:center"'  # 标题的字体大小
 
-        p_font_size = '60px'
+        p_font_size = '50px'
         self.style_paragrah = f'style="font-size:{p_font_size}; text-align:center"'
 
         p_font_size_author = '40px'
@@ -36,20 +38,15 @@ class Pinyin2h():
         return self.__heteronym__
 
     @property
-    def html(self):
+    def html_t(self):
         """html 标记文本"""
-        return self.__html__
+        return self.__html_t__
 
-    def dump_html(self, chars: str, number: int, out_file = None):
-        """
-            Args:
-                number: limit the number of chars in a line
-        """        
-        if out_file is None:
-            return
-        with open(out_file, 'w') as writer:
-            writer.write(self.gen_html(chars=chars, number=number))
-
+    @property
+    def html_s(self):
+        """html 标记文本"""
+        return self.__html_s__
+    
     def dump_poets_html(self, poets: list):
         """
             Args:
@@ -75,37 +72,68 @@ class Pinyin2h():
         },
     ]
         """        
-        html = self.gen_poets_html(poets)
-        self.__html__ = html
+        self.gen_poets_html(poets)
+        
 
     def gen_poets_html(self, poets):
         """
             Args:
                 poets: list of dict
         """
-        html_str = ''
         html_start = self.gen_start()
-        html_end = self.gen_end()
+        html_end = self.gen_end()       
+        # gen Traditional Chinese Edition
+        html_t = self.gen_poets_html_t(poets)       
+        self.__html_t__  = f'{html_start}{html_t}{html_end}'
+
+        # gen Simplified Chinese Edition
+        html_s = self.gen_poets_html_s(poets)       
+        self.__html_s__  = f'{html_start}{html_s}{html_end}'        
+
+
+    def gen_poets_html_t(self, poets):
+        """gen Traditional Chinese Edition"""
         poets_html = ''
+        self.init_for_phone()
         poets_html += self.div_page_head  # the page head div for the first page, to be the same with the other pages
         for poet in poets:
-            poet_html = self.gen_poet_html(poet)
+            poet_html = self.gen_poet_html(poet, edition='t')
             poet_html += self.div_after_page
             poets_html += poet_html
-        html_str = f'{html_start}{poets_html}{html_end}'
-        return html_str
+        return poets_html       
 
-    def gen_poet_html(self, poet):
+    def gen_poets_html_s(self, poets):
+        """gen Traditional Chinese Edition"""
+        poets_html = ''
+        self.init_for_phone()
+        poets_html += self.div_page_head  # the page head div for the first page, to be the same with the other pages
+        for poet in poets:
+            poet_html = self.gen_poet_html(poet, edition='s')
+            poet_html += self.div_after_page
+            poets_html += poet_html
+        return poets_html 
+
+    def gen_poet_html(self, poet, edition = 't'):
         """
             Args:
                 poet: dict
+                edition: str, available values:
+                    't': Traditional Chinese Edition
+                    's': Simplified Chinese Edition
+                    'c': Traditional vs Simplified Chinese Edition
         """
-        html_str = ''
-        title = poet['title']
-        self.poet_title = title
-        author = poet['author']
-        paragraphs_key = 'paragraphs'
-        paragraphs_key = 'paragraphs_break'  # one sentence each line
+        html_str = ''           
+        if edition == 't':
+            title = poet['title']
+            self.poet_title = f'{title}_繁体版'  # 为多音字列表而准备
+            author = poet['author']
+            # paragraphs_key = 'paragraphs'
+            paragraphs_key = 'paragraphs_break'  # one sentence each line            
+        elif edition == 's':
+            title = poet['title_simple']
+            self.poet_title = f'{title}_简体版'  # 为多音字列表而准备
+            author = poet['author_simple']
+            paragraphs_key = 'paragraphs_break_simple'
         paragraphs = poet[paragraphs_key]
 
         print(title)
@@ -328,9 +356,11 @@ def poets2html(out_dir, name, poets):
     """
     p2h = Pinyin2h()
     p2h.dump_poets_html(poets=poets)
-    out_file = os.path.join(out_dir, f'{name}.html')
-    html = p2h.html
-    dump_str(_file=out_file, _str=html)
+    out_file = os.path.join(out_dir, f'{name}_繁体版.html')
+    dump_str(_file=out_file, _str=p2h.html_t)
+
+    out_file = os.path.join(out_dir, f'{name}_简体版.html')
+    dump_str(_file=out_file, _str=p2h.html_s)    
 
     heteronym = p2h.heteronym
     heteronym_json = os.path.join(out_dir, f'{name}_heteronym.json')
