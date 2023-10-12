@@ -52,13 +52,13 @@ def convert2t(poets: list):
 def main():
     # load input file
     # input_json = 'input/孟浩然_春.json'
-    name = '手工实录'
+    name = '手工补录'
     input_json = f'input/{name}.json'
     poets = load_json(input_json) # list
 
     poets_tradtional = convert2t(poets)
 
-    out_dir = '../p2h_data'
+    out_dir = 'input/middle'
     makedirs(out_dir)
     out_file = os.path.join(out_dir, f'{name}_tradtional.json')
     dump_json(_file=out_file, _dict=poets_tradtional)

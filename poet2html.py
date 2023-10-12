@@ -8,7 +8,6 @@ class Pinyin2h():
         self.__html_t__ = ''  # 繁体版手机版
         self.__html_s__ = ''  # 简体版手机版
         self.__html_cts__ = ''  # 繁简双排对照打印版
-        self.__html_cs__ = '' # 简体版双排打印版
         self.__heteronym__ = {}  # 存储多音字，以诗词标题为key
         self.poet_title = ''
 
@@ -52,7 +51,6 @@ class Pinyin2h():
         self.div_page_head = f'<div {self.style_page_head}></div>'
         self.div_after_page = f'\n<div {self.style_after_page}>{self.div_page_head}</div>'   # page break per poet
 
-
     @property
     def heteronym(self):
         """
@@ -74,11 +72,6 @@ class Pinyin2h():
     def html_cts(self):
         """html 标记文本"""
         return self.__html_cts__
-
-    @property
-    def html_cs(self):
-        """html 标记文本"""
-        return self.__html_cs__
     
     def dump_poets_html(self, poets: list):
         """
@@ -107,7 +100,6 @@ class Pinyin2h():
         """        
         self.gen_poets_html(poets)
         
-
     def gen_poets_html(self, poets):
         """
             Args:
@@ -138,30 +130,58 @@ class Pinyin2h():
         """gen Traditional Chinese Edition"""
         poets_html = ''
         self.init_for_pc()
-        poets_html += self.div_after_page  # the page head div for the first page, to be the same with the other pages
-        new_page = False
-        cache = True
+
+        def add_page_break(str):
+            str += self.div_after_page
+            return str
+
+        poets_html = add_page_break(poets_html)  # the page head div for the first page, to be the same with the other pages
+        cache = True  # cache 为True, 则暂不分页
         for poet in poets:
             length = self.get_poet_length(poet)   # 为节约纸张，如果接连两首诗都是四行，则合并在一页
+            if length >= 5 and (not cache):  # 
+                poets_html = add_page_break(poets_html)                                
             poet_html_t = self.gen_poet_html(poet, edition='t')
             poet_html_s = self.gen_poet_html(poet, edition='s')
-            div_horizonal= f'\n<div style="display: flex; justify-content: space-around">{poet_html_t}\n{poet_html_s}</div>\n'
+            div_horizonal= f'\n<div style="display: flex; justify-content: space-around">{poet_html_t}\n{poet_html_s}</div>\n'        
             poets_html += div_horizonal
             if length >= 5:
-                new_page = True
+                poets_html = add_page_break(poets_html)
+                cache = True  # 设置下一首诗为cache
             else:
-                if cache:
-                    cache = False
+                if cache:               
                     # insert blank height
                     div_height = '\n<div style="height: 80px"></div>\n'
                     poets_html += div_height
+                    cache = False
                     continue
                 else:
-                    new_page = True
-                    cache = True
-            if new_page:
-                poets_html += self.div_after_page
-                new_page = False
+                    poets_html = add_page_break(poets_html)
+                    cache = True  # 设置下一首诗为cache   
+        return poets_html 
+
+    def gen_poets_html_cts2(self, poets):
+        """gen Traditional Chinese Edition 不论行数, 逢2分页, 适用于所有诗中，任何连续奇偶两首都可打印在一张纸上"""
+        poets_html = ''
+        self.init_for_pc()
+
+        def add_page_break(str):
+            str += self.div_after_page
+            return str
+
+        poets_html = add_page_break(poets_html)  # the page head div for the first page, to be the same with the other pages
+        i = 0
+        for poet in poets:
+            i += 1                               
+            poet_html_t = self.gen_poet_html(poet, edition='t')
+            poet_html_s = self.gen_poet_html(poet, edition='s')
+            div_horizonal= f'\n<div style="display: flex; justify-content: space-around">{poet_html_t}\n{poet_html_s}</div>\n'        
+            poets_html += div_horizonal
+            if (i % 2) == 0:
+                poets_html = add_page_break(poets_html)
+            else:
+                div_height = '\n<div style="height: 60px"></div>\n'
+                poets_html += div_height  
         return poets_html 
 
     def gen_poets_html_t(self, poets):

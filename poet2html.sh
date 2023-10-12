@@ -3,6 +3,10 @@
 # if your python application needs to be run virtual environment, do not export PATH like above, it will override the virtual PATH
 # a virtual environment value of PATH="/usr/app/playw-env/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
+# 请先检查 input/古诗接龙.json
+python3 break.py
+python3 t2s_add.py
+
 # source ~/.bashrc
 # please add alias below to your ~/.bashrc
 # alias activate_playwenv='source /usr/app/playw-env/bin/activate'
@@ -24,6 +28,7 @@ mkdir -p $pro_dir
 # mkdir -p $config_dir
 cd $pro_dir
 pwd
+
 python3 poet2html.py $@
 
 if [ -f /usr/app/pinyin-env/bin/activate ];then
