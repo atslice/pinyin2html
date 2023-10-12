@@ -4,14 +4,13 @@ from pypinyin import pinyin, Style
 from pyjsonlib import  load_json, dump_json
 from pyiolib import makedirs, dump_str
 
-class PoetPinyin2h():
+class Pinyin2h():
     def __init__(self) -> None:
         self.__html_t__ = ''  # 繁体版手机版
         self.__html_s__ = ''  # 简体版手机版
         self.__html_cts__ = ''  # 繁简双排对照打印版
         self.__heteronym__ = {}  # 存储多音字，以诗词标题为key
         self.__poets_pinyin__ = []  # copy of deepcopy incoming poets, but add pinyin data
-        self.final = False
         self.poet_title = ''
 
     def init_for_phone(self):
@@ -80,12 +79,11 @@ class PoetPinyin2h():
     def poets_pinyin(self):
         """return the pinyin-data-added poets list"""
         return self.__poets_pinyin__
-       
-    def gen_poets_html(self, poets: list, final = False):
+
+    def dump_poets_html(self, poets: list):
         """
             Args:
-                poets: list of dict
-                final: boolean, if True, it means each poet in poets contains the pinyin data, it is safe to read pinyin data from poets, and should not call pinyin lib to generate pinyin data
+            poets: list of dict
         Example:
     [   {
         "author": "孟浩然",
@@ -105,9 +103,15 @@ class PoetPinyin2h():
         "title": "春曉",
         "id": "cb168b3b-d104-4df7-9868-1e1225ddb941"
         },
-    ]        
+    ]
+        """        
+        self.gen_poets_html(poets)
+        
+    def gen_poets_html(self, poets):
         """
-        self.final = final
+            Args:
+                poets: list of dict
+        """
         self.__poets_pinyin__ = copy.deepcopy(poets)
         html_start = self.gen_start()
         html_end = self.gen_end()
@@ -198,8 +202,7 @@ class PoetPinyin2h():
             poet_html, poet_pinyins = self.gen_poet_html(poet, edition='t')
             poet_html += self.div_after_page
             poets_html += poet_html
-            if not self.final:
-                self.__poets_pinyin__[i].update(poet_pinyins)
+            self.__poets_pinyin__[i].update(poet_pinyins)
             i += 1
         return poets_html       
 
@@ -213,8 +216,7 @@ class PoetPinyin2h():
             poet_html, poet_pinyins = self.gen_poet_html(poet, edition='s')
             poet_html += self.div_after_page
             poets_html += poet_html
-            if not self.final:
-                self.__poets_pinyin__[i].update(poet_pinyins)
+            self.__poets_pinyin__[i].update(poet_pinyins)
             i += 1
         return poets_html 
 
@@ -238,7 +240,7 @@ class PoetPinyin2h():
             author_key = 'author'
             author = poet[author_key]
             # paragraphs_key = 'paragraphs'
-            paragraphs_key = 'paragraphs_break'  # one sentence each line         
+            paragraphs_key = 'paragraphs_break'  # one sentence each line            
         elif edition == 's':
             title_key = 'title_simple'
             title = poet[title_key]
@@ -246,44 +248,31 @@ class PoetPinyin2h():
             author_key = 'author_simple'
             author = poet[author_key]
             paragraphs_key = 'paragraphs_break_simple'
-        title_pinyins_key = f'{title_key}_pinyins'
-        author_pinyins_key = f'{author_key}_pinyins' 
-        paragraphs_pinyins_key = f'{paragraphs_key}_pinyins'
         paragraphs = poet[paragraphs_key]
 
         print(title)
-
-
-        pinyins = poet[title_pinyins_key] if self.final else []
-        title_paragraph, title_pinyins = self.gen_headline_html(chars=title, pinyins=pinyins, level=1, style=self.style_headline)
-
-        pinyins = poet[author_pinyins_key] if self.final else []
-        author_paragraph, author_pinyins = self.gen_paragrah_html(chars=author, pinyins=pinyins, style=self.style_paragrah_author)
-
-        if self.final:  # each poet contains pinyin data
-            paragraphs_pinyins_db = poet[paragraphs_pinyins_key]
+        title_paragraph, title_pinyins = self.gen_headline_html(chars=title, level=1, style=self.style_headline)
+        author_paragraph, author_pinyins = self.gen_paragrah_html(chars=author, style=self.style_paragrah_author)
         poet_paragraphs = ''
         paragraphs_pinyins = {}  # 存储分行诗句对应的拼音
         for paragraph in paragraphs:
-            pinyins = paragraphs_pinyins_db[paragraph] if self.final else []
-            poet_paragraph, paragraph_pinyins = self.gen_paragrah_html(chars=paragraph, pinyins=pinyins, style=self.style_paragrah)  # TODO 需要处理标点符号
+            poet_paragraph, paragraph_pinyins = self.gen_paragrah_html(chars=paragraph, style=self.style_paragrah)  # TODO 需要处理标点符号
             poet_paragraphs += poet_paragraph
             paragraphs_pinyins[paragraph] = paragraph_pinyins
         html_str = f'{title_paragraph}{author_paragraph}{poet_paragraphs}'
         poet_pinyins = {
-                title_pinyins_key: title_pinyins,
-                author_pinyins_key: author_pinyins,
-                paragraphs_pinyins_key: paragraphs_pinyins
+                f'{title_key}_pinyins': title_pinyins,
+                f'{author_key}_pinyins': author_pinyins,
+                f'{paragraphs_key}_pinyins': paragraphs_pinyins
             }
         html_str = f'\n<div class="poet">{html_str}</div>\n'
         return html_str, poet_pinyins
 
-    def gen_headline_html(self, chars, pinyins, level = 1, style = ''):
+    def gen_headline_html(self, chars, level = 1, style = ''):
         """
             generate html headline with pinyin han span
             Args:
                 chars: str, only Chinese chars
-                pinyins: list of str, the pinyin data relative with chars, usefull when final pinyin data is already in poet
                 level: int, from 1 to 6
                 style: str, the leagal style attribute
         """
@@ -291,26 +280,19 @@ class PoetPinyin2h():
             raise ValueError('level must be int range from 1 to 6')
         tag_start = f'<h{level} {style}>'
         tag_end = f'</h{level}>'
-        if self.final:
-            spans, pinyins = self.gen_pinyin_han_final(chars, pinyins)
-        else:
-            spans, pinyins = self.gen_pinyin_han(chars)
+        spans, pinyins = self.gen_pinyin_han(chars)
         return f'\n{tag_start}{spans}{tag_end}', pinyins
 
-    def gen_paragrah_html(self, chars, pinyins, style = ''):
+    def gen_paragrah_html(self, chars, style = ''):
         """
             generate html paragrah with pinyin han span
             Args:
                 chars: str, only Chinese chars
-                pinyins: list of str, the pinyin data relative with chars, usefull when final pinyin data is already in poet
                 style: str, the leagal style attribute of font-size, text-align, etc
         """     
         tag_start = f'<p {style}>'
         tag_end = '</p>'
-        if self.final:
-            spans, pinyins = self.gen_pinyin_han_final(chars, pinyins)
-        else:
-            spans, pinyins = self.gen_pinyin_han(chars)
+        spans, pinyins = self.gen_pinyin_han(chars)
         return f'\n{tag_start}{spans}{tag_end}', pinyins
 
     def get_heteronym_list(self, chars):
@@ -375,28 +357,6 @@ class PoetPinyin2h():
                 span = self.gen_span(char=char, mark=mark) #  i 对应汉字字符
                 i += 1      
             spans = f'{spans}{span}'
-        spans = f'{spans}\n'
-        return spans, pinyins
-
-    def gen_pinyin_han_final(self, chars, pinyins):
-        """
-            generate html pinyin han span
-            Args:
-                chars: str, only Chinese chars
-                pinyins: list of str, the pinyin data relative with chars, usefull when final pinyin data is already in poet
-            Return: (str, list)
-                str: html spans
-                list: the relative pinyin of chars, if some char in chars is not Chinese chars, space->space, biaodian->empty string
-        """
-        self.get_heteronym_list(chars)  # 虽然不用pinyin lib来查找拼音，仍然列出多音字 
-        spans = ''
-        i = 0  # for easy reading data in pinyins
-        for char in chars:
-            mark = pinyins[i]
-            span = self.gen_span(char=char, mark=mark)
-            i += 1      
-            spans = f'{spans}{span}'
-        spans = f'{spans}\n'
         return spans, pinyins
 
     def gen_html(self, chars: str, number: int):
@@ -480,13 +440,25 @@ class PoetPinyin2h():
         return module.format_map({'style': self.kaiti_style, '汉': char, 'hàn': mark})
 
 
-def poets2html(out_dir, name, poets, final=False):
+
+def test():
+    p2h = Pinyin2h()
+    cnchar = '一个人'
+    mark = pinyin(cnchar, heteronym=True)  # heteronym=True 启用多音字模式
+    # 多音字模式: '一' -> [['yī', 'yí', 'yì']]
+    # heteronym=False  ‘一' -> [['yī']]
+    print(mark)  # 即使启用多音字模式, '一个人' -> [['yí'], ['gè'], ['rén']]
+    print(type(mark))
+    span = p2h.gen_span(char = '你', mark =  mark[0][0])
+    print(span)
+
+
+def poets2html(out_dir, name, poets):
     """
         Args:
             out_dir: str, the path to store to result files
             name: str, the basename of file without extension
             poets: list of dict
-            final: boolean, if True, it means each poet in poets contains the pinyin data, it is safe to read pinyin data from poets, and should not call pinyin lib to generate pinyin data            
         Example:
     [   {
         "author": "孟浩然",
@@ -508,8 +480,8 @@ def poets2html(out_dir, name, poets, final=False):
         },
     ]
     """
-    p2h = PoetPinyin2h()
-    p2h.gen_poets_html(poets=poets, final=final)
+    p2h = Pinyin2h()
+    p2h.dump_poets_html(poets=poets)
 
     out_file = os.path.join(out_dir, f'{name}_繁体版.html')
     dump_str(_file=out_file, _str=p2h.html_t)
@@ -528,19 +500,16 @@ def poets2html(out_dir, name, poets, final=False):
 
     print(out_file)    
 
-def json2html(out_dir, input_json, name, final=False):
-    """
-        final: boolean, if True, it means each poet in poets contains the pinyin data, it is safe to read pinyin data from poets, and should not call pinyin lib to generate pinyin data                
-    """
+def json2html(out_dir, input_json, name):
     poets = load_json(input_json) # list
-    poets2html(out_dir, name, poets, final)
+    poets2html(out_dir, name, poets)
 
 def main():
     out_dir = '../p2h_data'
     makedirs(out_dir)    
-    name = '古诗接龙_break_simple_add_pinyin'
-    input_json = f'input/final/{name}.json'
-    json2html(out_dir, input_json, name, final=True)    
+    name = '古诗接龙_break_simple_add'
+    input_json = f'input/middle/{name}.json'
+    json2html(out_dir, input_json, name)    
 
 
 if __name__ =="__main__":

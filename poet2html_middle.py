@@ -62,9 +62,9 @@ def json2html(out_dir, input_json, name, final=False):
 def main():
     out_dir = '../p2h_data'
     makedirs(out_dir)    
-    name = '古诗接龙_break_simple_add_pinyin'
-    input_json = f'input/final/{name}.json'
-    json2html(out_dir, input_json, name, final=True)    
+    name = '古诗接龙_break_simple_add'
+    input_json = f'input/middle/{name}.json'
+    json2html(out_dir, input_json, name, final=False)    
 
 
 if __name__ =="__main__":
