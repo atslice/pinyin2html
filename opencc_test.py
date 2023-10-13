@@ -35,6 +35,9 @@ def main():
     char = '犂'
     print(t2s(char))  # 犂 -> 犂
 
+    char = '緌'
+    print(t2s(char))    
+
 
 if __name__ =="__main__":
     main()
