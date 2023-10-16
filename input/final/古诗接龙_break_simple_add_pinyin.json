@@ -131,7 +131,13 @@
                 "shǎo",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "táng"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ]
     },
     {
         "author": "朱熹",
@@ -261,7 +267,13 @@
                 "shēng",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "sòng"
+        ],
+        "time_simple_pinyins": [
+            "sòng"
+        ]
     },
     {
         "author": "李清照",
@@ -403,7 +415,13 @@
                 "dōng",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "sòng"
+        ],
+        "time_simple_pinyins": [
+            "sòng"
+        ]
     },
     {
         "author": "羅與之",
@@ -531,7 +549,13 @@
                 "rén",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "sòng"
+        ],
+        "time_simple_pinyins": [
+            "sòng"
+        ]
     },
     {
         "author": "白居易",
@@ -681,7 +705,13 @@
                 "lái",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "táng"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ]
     },
     {
         "author": "李映",
@@ -799,7 +829,15 @@
                 "bì",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "wǔ",
+            "dài"
+        ],
+        "time_simple_pinyins": [
+            "wǔ",
+            "dài"
+        ]
     },
     {
         "author": "賀知章",
@@ -957,7 +995,13 @@
                 "dāo",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "táng"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ]
     },
     {
         "author": "劉駕",
@@ -1085,7 +1129,13 @@
                 "mǎ",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "táng"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ]
     },
     {
         "author": "劉禹錫",
@@ -1281,7 +1331,13 @@
                 "bù",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "táng"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ]
     },
     {
         "author": "羅隱",
@@ -1421,7 +1477,13 @@
                 "tián",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "táng"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ]
     },
     {
         "author": "韓愈",
@@ -1595,7 +1657,13 @@
                 "dū",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "táng"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ]
     },
     {
         "author": "王維",
@@ -1755,7 +1823,13 @@
                 "rén",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "táng"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ]
     },
     {
         "author": "李昂  柳公權",
@@ -1883,7 +1957,13 @@
                 "liáng",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "táng"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ]
     },
     {
         "author": "杜甫",
@@ -2041,7 +2121,13 @@
                 "chuán",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "táng"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ]
     },
     {
         "author": "李白",
@@ -2161,7 +2247,13 @@
                 "yíng",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "táng"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ]
     },
     {
         "author": "葉紹翁",
@@ -2315,7 +2407,13 @@
                 "lái",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "sòng"
+        ],
+        "time_simple_pinyins": [
+            "sòng"
+        ]
     },
     {
         "author": "韋冰",
@@ -2449,7 +2547,13 @@
                 "cuī",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "táng"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ]
     },
     {
         "author": "虞世南",
@@ -2573,7 +2677,13 @@
                 "fēng",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "táng"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ]
     },
     {
         "author": "杜甫",
@@ -2815,7 +2925,13 @@
                 "bēi",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "táng"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ]
     },
     {
         "author": "王安石",
@@ -2947,6 +3063,12 @@
                 "chí",
                 ""
             ]
-        }
+        },
+        "time_pinyins": [
+            "sòng"
+        ],
+        "time_simple_pinyins": [
+            "sòng"
+        ]
     }
 ]

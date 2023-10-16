@@ -21,7 +21,7 @@ def break_poet(poet: dict):
         if key == 'paragraphs':  # value is list for such case
             if type(value) is list:
                 new_poet['paragraphs_break'] = paragraphs_break(value)
-    new_poet["time_author"] = f'[{poet["time"]}] {poet["author"]}'
+    # new_poet["time_author"] = f'[{poet["time"]}] {poet["author"]}'
     return new_poet
 
 def break_poets(poets: list):
