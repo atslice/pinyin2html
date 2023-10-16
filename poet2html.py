@@ -1,6 +1,7 @@
 import os
 import copy
 from pypinyin import pinyin, Style
+from pinyinlib import get_pinyins
 from pyjsonlib import  load_json, dump_json
 from pyiolib import makedirs, dump_str
 
@@ -204,7 +205,7 @@ class PoetPinyin2h():
         return poets_html       
 
     def gen_poets_html_s(self, poets):
-        """gen Traditional Chinese Edition"""
+        """gen Simplified Chinese Edition"""
         poets_html = ''
         self.init_for_phone()
         poets_html += self.div_page_head  # the page head div for the first page, to be the same with the other pages
@@ -235,17 +236,16 @@ class PoetPinyin2h():
             title_key = 'title'
             title = poet[title_key]
             self.poet_title = f'{title}_繁体版'  # 为多音字列表而准备
-            author_key = 'author'
+            author_key = 'time_author'
             author = poet[author_key]
-            # paragraphs_key = 'paragraphs'
             paragraphs_key = 'paragraphs_break'  # one sentence each line         
         elif edition == 's':
             title_key = 'title_simple'
             title = poet[title_key]
             self.poet_title = f'{title}_简体版'  # 为多音字列表而准备
-            author_key = 'author_simple'
+            author_key = 'time_author_simple'
             author = poet[author_key]
-            paragraphs_key = 'paragraphs_break_simple'
+            paragraphs_key = 'paragraphs_break_simple'  # one sentence each line 
         title_pinyins_key = f'{title_key}_pinyins'
         author_pinyins_key = f'{author_key}_pinyins' 
         paragraphs_pinyins_key = f'{paragraphs_key}_pinyins'
@@ -327,6 +327,16 @@ class PoetPinyin2h():
                     char: marks[0]
                 })
 
+    def get_pinyins(self, chars):
+        """
+            get pinyins from chars
+            Args:
+                chars: str, only Chinese chars
+            Return: list, the relative pinyin of chars, if some char in chars is not Chinese chars, space biaodian->empty string
+        """
+        pinyins = get_pinyins(chars)     
+        return pinyins
+
     def gen_pinyin_han(self, chars):
         """
             generate html pinyin han span
@@ -336,46 +346,9 @@ class PoetPinyin2h():
                 str: html spans
                 list: the relative pinyin of chars, if some char in chars is not Chinese chars, space->space, biaodian->empty string
         """
-        def get_mark(i, marks):
-            """
-                Args:
-                    i: int
-                    marks: list
-                Return: (int, str)
-                取到非空拼音为止
-            """
-            mark = marks[i][0]
-            while ' ' in mark:
-                i += 1
-                mark = marks[i][0]
-            return i, mark
-
-        self.get_heteronym_list(chars)    
-        spans = ''
-        pinyins = []  # 存储对应的拼音, 长度与chars对应，可存储，为方便以后拼音修改
-        # marks = pinyin(chars, heteronym=True)
-        marks = pinyin(chars)  # list of list, 非多音字模式。如果chars里有连续空格的话，返回的列表长度与chars长度不一致。 TO-DO: 找出多音字，并作出提示
-        # print(f'chars: {len(chars)}, marks: {len(marks)}')
-        # print(marks)
-        # 商歌三首  其一
-        # [['shāng'], ['gē'], ['sān'], ['shǒu'], ['  '], ['qí'], ['yī']]
-        # 连续空格，则只返回对应空格, 多个空格合并为一个字符串放到一个列表里。如"商歌三首"后是两个空格，但只返回['  ']
-        # if ' ' in chars:
-        #    raise ValueError('stop by user')
-        i = 0
-        biaodian = '，。'
-        for char in chars:
-            if char == ' ':  # char是空格，marks里没有对应的空列表，i不自加，否则会导致index越界
-                span = self.gen_span(char=' ', mark=' ')
-                pinyins.append(' ')
-            else:
-                i, mark = get_mark(i, marks)  # 取到非空格拼音为止
-                mark = '' if char in biaodian else mark   #  标点符号则不注拼音。 下面代码结果同: mark = '' if mark in biaodian else mark
-                pinyins.append(mark)
-                span = self.gen_span(char=char, mark=mark) #  i 对应汉字字符
-                i += 1      
-            spans = f'{spans}{span}'
-        spans = f'{spans}\n'
+        pinyins = self.get_pinyins(chars)
+        spans = self.gen_pinyin_han_final(chars, pinyins)
+        print(pinyins)
         return spans, pinyins
 
     def gen_pinyin_han_final(self, chars, pinyins):
@@ -392,6 +365,7 @@ class PoetPinyin2h():
         spans = ''
         i = 0  # for easy reading data in pinyins
         for char in chars:
+            print(f'{char} {i}')
             mark = pinyins[i]
             span = self.gen_span(char=char, mark=mark)
             i += 1      
