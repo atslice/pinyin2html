@@ -148,7 +148,7 @@ class PoetPinyin2h():
                 poets_html = add_page_break(poets_html)                                
             poet_html_t, poet_pinyins = self.gen_poet_html(poet, edition='t')
             poet_html_s, poet_pinyins = self.gen_poet_html(poet, edition='s')
-            div_horizonal= f'\n<div style="display: flex; justify-content: space-around">{poet_html_t}\n{poet_html_s}</div>\n'        
+            div_horizonal= f'\n  <div style="display: flex; justify-content: space-around">{poet_html_t}{poet_html_s}\n  </div>\n'        
             poets_html += div_horizonal
             if length >= 5:
                 poets_html = add_page_break(poets_html)
@@ -180,7 +180,7 @@ class PoetPinyin2h():
             i += 1                               
             poet_html_t, poet_pinyins = self.gen_poet_html(poet, edition='t')
             poet_html_s, poet_pinyins = self.gen_poet_html(poet, edition='s')
-            div_horizonal= f'\n<div style="display: flex; justify-content: space-around">{poet_html_t}\n{poet_html_s}</div>\n'        
+            div_horizonal= f'\n  <div style="display: flex; justify-content: space-around">{poet_html_t}{poet_html_s}\n  </div>\n'        
             poets_html += div_horizonal
             if (i % 2) == 0:
                 poets_html = add_page_break(poets_html)
@@ -236,29 +236,36 @@ class PoetPinyin2h():
             title_key = 'title'
             title = poet[title_key]
             self.poet_title = f'{title}_繁体版'  # 为多音字列表而准备
-            author_key = 'time_author'
-            author = poet[author_key]
+            time_key = 'time'
+            author_key = 'author'
+            time_author_key = 'time_author'
+            time_author = poet[time_author_key]
             paragraphs_key = 'paragraphs_break'  # one sentence each line         
         elif edition == 's':
             title_key = 'title_simple'
             title = poet[title_key]
             self.poet_title = f'{title}_简体版'  # 为多音字列表而准备
-            author_key = 'time_author_simple'
-            author = poet[author_key]
+            time_key = 'time_simple'
+            author_key = 'author_simple'
+            time_author_key = 'time_author_simple'
+            time_author = poet[time_author_key]
             paragraphs_key = 'paragraphs_break_simple'  # one sentence each line 
         title_pinyins_key = f'{title_key}_pinyins'
-        author_pinyins_key = f'{author_key}_pinyins' 
+        time_author_pinyins_key = f'{time_author_key}_pinyins'
+        time_pinyins_key = f'{time_key}_pinyins'
+        author_pinyins_key = f'{author_key}_pinyins'
         paragraphs_pinyins_key = f'{paragraphs_key}_pinyins'
         paragraphs = poet[paragraphs_key]
 
         print(title)
-
+        time_pinyins = self.find_pinyins(poet[time_key])
+        author_pinyins = self.find_pinyins(poet[author_key])
 
         pinyins = poet[title_pinyins_key] if self.final else []
         title_paragraph, title_pinyins = self.gen_headline_html(chars=title, pinyins=pinyins, level=1, style=self.style_headline)
 
-        pinyins = poet[author_pinyins_key] if self.final else []
-        author_paragraph, author_pinyins = self.gen_paragrah_html(chars=author, pinyins=pinyins, style=self.style_paragrah_author)
+        pinyins = poet[time_author_pinyins_key] if self.final else []
+        author_paragraph, time_author_pinyins = self.gen_paragrah_html(chars=time_author, pinyins=pinyins, style=self.style_paragrah_author)
 
         if self.final:  # each poet contains pinyin data
             paragraphs_pinyins_db = poet[paragraphs_pinyins_key]
@@ -266,16 +273,18 @@ class PoetPinyin2h():
         paragraphs_pinyins = {}  # 存储分行诗句对应的拼音
         for paragraph in paragraphs:
             pinyins = paragraphs_pinyins_db[paragraph] if self.final else []
-            poet_paragraph, paragraph_pinyins = self.gen_paragrah_html(chars=paragraph, pinyins=pinyins, style=self.style_paragrah)  # TODO 需要处理标点符号
+            poet_paragraph, paragraph_pinyins = self.gen_paragrah_html(chars=paragraph, pinyins=pinyins, style=self.style_paragrah)
             poet_paragraphs += poet_paragraph
             paragraphs_pinyins[paragraph] = paragraph_pinyins
         html_str = f'{title_paragraph}{author_paragraph}{poet_paragraphs}'
         poet_pinyins = {
                 title_pinyins_key: title_pinyins,
-                author_pinyins_key: author_pinyins,
+                time_pinyins_key: time_pinyins,
+                author_pinyins_key: author_pinyins,                
+                time_author_pinyins_key: time_author_pinyins,
                 paragraphs_pinyins_key: paragraphs_pinyins
             }
-        html_str = f'\n<div class="poet">{html_str}</div>\n'
+        html_str = f'\n    <div class="poet">{html_str}\n    </div>\n'
         return html_str, poet_pinyins
 
     def gen_headline_html(self, chars, pinyins, level = 1, style = ''):
@@ -289,13 +298,13 @@ class PoetPinyin2h():
         """
         if not level in (1, 2, 3, 4, 5, 6):
             raise ValueError('level must be int range from 1 to 6')
-        tag_start = f'<h{level} {style}>'
-        tag_end = f'</h{level}>'
+        tag_start = f'\n      <h{level} {style}>'
+        tag_end = f'\n      </h{level}>'
         if self.final:
-            spans, pinyins = self.gen_pinyin_han_final(chars, pinyins)
+            spans, pinyins2 = self.gen_pinyin_han_final(chars, pinyins)
         else:
-            spans, pinyins = self.gen_pinyin_han(chars)
-        return f'\n{tag_start}{spans}{tag_end}', pinyins
+            spans, pinyins2 = self.gen_pinyin_han(chars)
+        return f'{tag_start}{spans}{tag_end}', pinyins2
 
     def gen_paragrah_html(self, chars, pinyins, style = ''):
         """
@@ -305,13 +314,13 @@ class PoetPinyin2h():
                 pinyins: list of str, the pinyin data relative with chars, usefull when final pinyin data is already in poet
                 style: str, the leagal style attribute of font-size, text-align, etc
         """     
-        tag_start = f'<p {style}>'
-        tag_end = '</p>'
+        tag_start = f'\n      <p {style}>'
+        tag_end = '\n      </p>'
         if self.final:
-            spans, pinyins = self.gen_pinyin_han_final(chars, pinyins)
+            spans, pinyins2 = self.gen_pinyin_han_final(chars, pinyins)
         else:
-            spans, pinyins = self.gen_pinyin_han(chars)
-        return f'\n{tag_start}{spans}{tag_end}', pinyins
+            spans, pinyins2 = self.gen_pinyin_han(chars)
+        return f'{tag_start}{spans}{tag_end}', pinyins2
 
     def get_heteronym_list(self, chars):
         """
@@ -327,7 +336,7 @@ class PoetPinyin2h():
                     char: marks[0]
                 })
 
-    def get_pinyins(self, chars):
+    def find_pinyins(self, chars):
         """
             get pinyins from chars
             Args:
@@ -346,9 +355,10 @@ class PoetPinyin2h():
                 str: html spans
                 list: the relative pinyin of chars, if some char in chars is not Chinese chars, space->space, biaodian->empty string
         """
-        pinyins = self.get_pinyins(chars)
-        spans = self.gen_pinyin_han_final(chars, pinyins)
-        print(pinyins)
+        print(f'len = {len(chars)}, chars = {chars}')
+        pinyins = self.find_pinyins(chars)
+        print(f'len = {len(pinyins)}, pinyins = {pinyins}')
+        spans, _ = self.gen_pinyin_han_final(chars, pinyins)
         return spans, pinyins
 
     def gen_pinyin_han_final(self, chars, pinyins):
@@ -359,18 +369,18 @@ class PoetPinyin2h():
                 pinyins: list of str, the pinyin data relative with chars, usefull when final pinyin data is already in poet
             Return: (str, list)
                 str: html spans
-                list: the relative pinyin of chars, if some char in chars is not Chinese chars, space->space, biaodian->empty string
+                list: the relative pinyin of chars, the same as argument pinyins
         """
         self.get_heteronym_list(chars)  # 虽然不用pinyin lib来查找拼音，仍然列出多音字 
         spans = ''
         i = 0  # for easy reading data in pinyins
         for char in chars:
-            print(f'{char} {i}')
+            print(f'{char} {i} {pinyins[i]}')
             mark = pinyins[i]
             span = self.gen_span(char=char, mark=mark)
             i += 1      
             spans = f'{spans}{span}'
-        spans = f'{spans}\n'
+        spans = f'{spans}'
         return spans, pinyins
 
     def gen_html(self, chars: str, number: int):
@@ -426,14 +436,12 @@ class PoetPinyin2h():
         html_start = """
 <html>
 
-<body>
-    <div class="content">        
+<body>       
         """
         return html_start
     
     def gen_end(self):
         html_end = """
-    </div>
 </body>
 
 </html>      

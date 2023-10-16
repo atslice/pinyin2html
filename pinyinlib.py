@@ -32,6 +32,8 @@ def get_pinyins(chars):
                 groups.append([char])
                 pre_non = False
                 tmp = []
+        if pre_non:
+            groups.append(tmp)  # 当最后一个或几个为非汉字时
         print(groups)
         return groups
     
@@ -52,7 +54,7 @@ def get_pinyins(chars):
         # 连续空格，则只返回对应空格, 多个空格合并为一个字符串放到一个列表里。如"商歌三首"后是两个空格，但只返回['  ']
         j = 0
         for group in groups:
-            print(j)
+            # print(j)
             pys = [ '' if is_not_cnchar(char) else marks[j][0]  # 因分词不当，可能有多个读音的情况下，取第一个读音
                     for char in group
                 ]
@@ -95,12 +97,12 @@ def test_heteronym():
     print(mark)  # [['hǎo', 'hào'], ['hào', 'gǎo', 'gé'], ['S'], ['hǎo', 'hào'], ['pK'], ['bù', 'fǒu', 'fōu', 'fū', 'bú']]
 
 
-def test_symbol():
-    chars = '[唐] 孟浩然'
+def test_symbol(chars):
+    # chars = '[唐] 孟浩然'
     mark = pinyin(chars, heteronym=True)  # heteronym=True 启用多音字模式
     print(mark)  # [['['], ['táng'], ['] '], ['mèng'], ['hào', 'gǎo', 'gé'], ['rán']]
     # 注意]和空格合并到一个列表里返回了
-    print(type(mark))
+    # print(type(mark))
 
     pinyins = get_pinyins(chars=chars)
     print(f'chars length: {len(chars)}, pinyins length: {len(pinyins)}')
@@ -110,7 +112,10 @@ def test_symbol():
 
 def main():
     # test()
-    test_symbol()
+    chars = '[唐] 孟浩然'
+    test_symbol(chars)
+    chars = '春眠不覺曉，'
+    test_symbol(chars)
 
 if __name__ =="__main__":
     main()
