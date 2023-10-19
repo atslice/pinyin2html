@@ -16,6 +16,14 @@ class PoetPinyin2h():
         self.poet_title = ''
 
     def init_for_phone(self):
+        self.css_style = """
+    <style type="text/css">      
+       .py-chinese-item {min-width:50px;} 
+       .py-pinyin-item  {min-width:50px; width:100px;} 
+   </style>
+   """
+        self.css_style = ''
+        #        .py-result-item {line-height:2.2em;}
         self.kaiti_style = f'style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;AR PL UKai CN&quot;, &quot;AR PL UKai HK&quot;, &quot;AR PL UKai TW&quot;, &quot;AR PL UKai TW MBE&quot;, &quot;AR PL KaitiM GB&quot;, KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai, web-fz;"'
         # "text-align:center"
         h_font_size = '50px'
@@ -36,6 +44,14 @@ class PoetPinyin2h():
         self.div_after_page = f'\n<div {self.style_after_page}>{self.div_page_head}</div>'   # page break per poet
 
     def init_for_pc(self):
+        self.css_style = """
+    <style type="text/css">      
+       .py-chinese-item {min-width:25px;} 
+       .py-pinyin-item  {min-width:25px; width:50px;} 
+   </style>
+   """
+        self.css_style = ''
+        #        .py-result-item {line-height:2.2em;}
         self.kaiti_style = f'style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;AR PL UKai CN&quot;, &quot;AR PL UKai HK&quot;, &quot;AR PL UKai TW&quot;, &quot;AR PL UKai TW MBE&quot;, &quot;AR PL KaitiM GB&quot;, KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai, web-fz;"'
         # "text-align:center"
         h_font_size = '25px'
@@ -110,19 +126,19 @@ class PoetPinyin2h():
         """
         self.final = final
         self.__poets_pinyin__ = copy.deepcopy(poets)
-        html_start = self.gen_start()
+        
         html_end = self.gen_end()
 
         # gen Traditional Chinese Edition
-        html_t = self.gen_poets_html_t(poets)       
+        html_start, html_t = self.gen_poets_html_t(poets)       
         self.__html_t__  = f'{html_start}{html_t}{html_end}'
 
         # gen Simplified Chinese Edition
-        html_s = self.gen_poets_html_s(poets)       
+        html_start, html_s = self.gen_poets_html_s(poets)       
         self.__html_s__  = f'{html_start}{html_s}{html_end}'
 
         # gen Traditional vs Simplified Chinese Edition
-        html_cts = self.gen_poets_html_cts(poets)       
+        html_start, html_cts = self.gen_poets_html_cts(poets)       
         self.__html_cts__  = f'{html_start}{html_cts}{html_end}'
 
         # gen Simplified vs Simplified Chinese Edition       
@@ -135,6 +151,7 @@ class PoetPinyin2h():
         """gen Traditional Chinese Edition"""
         poets_html = ''
         self.init_for_pc()
+        html_start = self.gen_start()
 
         def add_page_break(str):
             str += self.div_after_page
@@ -163,12 +180,13 @@ class PoetPinyin2h():
                 else:
                     poets_html = add_page_break(poets_html)
                     cache = True  # 设置下一首诗为cache   
-        return poets_html 
+        return html_start, poets_html 
 
     def gen_poets_html_cts2(self, poets):
         """gen Traditional Chinese Edition 不论行数, 逢2分页, 适用于所有诗中，任何连续奇偶两首都可打印在一张纸上"""
         poets_html = ''
         self.init_for_pc()
+        html_start = self.gen_start()
 
         def add_page_break(str):
             str += self.div_after_page
@@ -187,12 +205,13 @@ class PoetPinyin2h():
             else:
                 div_height = '\n<div style="height: 60px"></div>\n'
                 poets_html += div_height  
-        return poets_html 
+        return html_start, poets_html 
 
     def gen_poets_html_t(self, poets):
         """gen Traditional Chinese Edition"""
         poets_html = ''
         self.init_for_phone()
+        html_start = self.gen_start()
         poets_html += self.div_page_head  # the page head div for the first page, to be the same with the other pages
         i = 0  # 为方便update self.__poets_pinyin__
         for poet in poets:
@@ -202,12 +221,13 @@ class PoetPinyin2h():
             #if not self.final:
             self.__poets_pinyin__[i].update(poet_pinyins)  # 不管是不是从final读取拼音，都update(有时添加了新key)
             i += 1
-        return poets_html       
+        return html_start, poets_html       
 
     def gen_poets_html_s(self, poets):
         """gen Simplified Chinese Edition"""
         poets_html = ''
         self.init_for_phone()
+        html_start = self.gen_start()
         poets_html += self.div_page_head  # the page head div for the first page, to be the same with the other pages
         i = 0  # 为方便update self.__poets_pinyin__
         for poet in poets:
@@ -217,7 +237,7 @@ class PoetPinyin2h():
             # if not self.final:
             self.__poets_pinyin__[i].update(poet_pinyins) # 不管是不是从final读取拼音，都update(有时添加了新key)
             i += 1
-        return poets_html 
+        return html_start, poets_html 
 
     def gen_poet_html(self, poet, edition = 't'):
         """
@@ -329,7 +349,7 @@ class PoetPinyin2h():
             self.__heteronym__[self.poet_title] = {}
         for char in chars:
             marks = pinyin(char, heteronym=True)  # '落' -> [['luò', 'là', 'lào', 'luō']];  '。' -> [['。']]
-            print(f'{char}: {len(marks[0])} {marks[0]}')
+            # print(f'{char}: {len(marks[0])} {marks[0]}')
             if len(marks[0]) > 1:  # 有多个读音
                 self.__heteronym__[self.poet_title].update({
                     char: marks[0]
@@ -359,7 +379,7 @@ class PoetPinyin2h():
         spans = ''
         i = 0  # for easy reading data in pinyins
         for char in chars:
-            print(f'{char} {i} {pinyins[i]}')
+            # print(f'{char} {i} {pinyins[i]}')
             mark = pinyins[i]
             span = self.gen_span(char=char, mark=mark)
             i += 1      
@@ -419,10 +439,12 @@ class PoetPinyin2h():
         # style="text-align:center"
         html_start = """
 <html>
-
+<head>
+{css_style}
+</head>
 <body>       
         """
-        return html_start
+        return html_start.format_map({'css_style': self.css_style})
     
     def gen_end(self):
         html_end = """

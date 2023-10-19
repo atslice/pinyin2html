@@ -3,6 +3,7 @@ import copy
 # from opencc import OpenCC
 from pyjsonlib import  load_json, dump_json
 from pyiolib import makedirs
+from pyargslib import parse_args
 
 
 def paragraphs_break(_list: list):
@@ -30,8 +31,12 @@ def break_poets(poets: list):
 def main():
     # load input file
     # input_json = 'input/孟浩然_春.json'
-    name = '古诗接龙'
+    args = parse_args()
+    # name = '古诗接龙'
+    name = args.name
+
     input_json = f'input/{name}.json'
+    print(f'input: {input_json}')
     poets = load_json(input_json) # list
 
     poets_break = break_poets(poets)
@@ -40,6 +45,7 @@ def main():
     makedirs(out_dir)
     out_file = os.path.join(out_dir, f'{name}_break.json')
     dump_json(_file=out_file, _dict=poets_break)
+    print(f'break output: {out_file}')
 
 
 if __name__ =="__main__":

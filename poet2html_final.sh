@@ -26,7 +26,14 @@ mkdir -p $pro_dir
 cd $pro_dir
 pwd
 
-python3 poet2html_final.py $@
+name=古诗接龙1
+# name=古诗接龙2
+name2=${name}_break
+name3=${name2}_simple_add
+name4=${name3}_pinyin
+echo $name4
+
+python3 poet2html_final.py -n $name4 $@
 
 if [ -f /usr/app/pinyin-env/bin/activate ];then
     deactivate

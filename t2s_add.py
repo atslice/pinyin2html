@@ -3,6 +3,7 @@ import copy
 from opencc import OpenCC
 from pyjsonlib import  load_json, dump_json
 from pyiolib import makedirs
+from pyargslib import parse_args
 
 
 def t2s(chars):
@@ -29,7 +30,9 @@ def convert2simple(poets: list):
     return [dict2simple(poet) for poet in poets]
 
 def main():
-    name = '古诗接龙_break'
+    args = parse_args()
+    # name = '古诗接龙_break'
+    name = args.name
     input_json = f'input/middle/{name}.json'
     poets = load_json(input_json) # list
 
@@ -39,6 +42,7 @@ def main():
     makedirs(out_dir)
     out_file = os.path.join(out_dir, f'{name}_simple_add.json')
     dump_json(_file=out_file, _dict=poets_simple)
+    print(f't2s_add output: {out_file}')
 
 
 if __name__ =="__main__":

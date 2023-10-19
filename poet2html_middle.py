@@ -3,6 +3,7 @@ import os
 from poet2html import PoetPinyin2h
 from pyjsonlib import  load_json, dump_json
 from pyiolib import makedirs, dump_str
+from pyargslib import parse_args
 
 def poets2html(out_dir, name, poets, final=False):
     """
@@ -50,7 +51,7 @@ def poets2html(out_dir, name, poets, final=False):
     poets_pinyin_json = os.path.join(out_dir, f'{name}_pinyin.json')
     dump_json(_file=poets_pinyin_json, _dict=p2h.poets_pinyin)
 
-    print(out_file)    
+    print(f'output: {out_file}')    
 
 def json2html(out_dir, input_json, name, final=False):
     """
@@ -60,10 +61,14 @@ def json2html(out_dir, input_json, name, final=False):
     poets2html(out_dir, name, poets, final)
 
 def main():
+    args = parse_args()
     out_dir = '../p2h_data'
     makedirs(out_dir)    
-    name = '古诗接龙_break_simple_add'
+    # name = '古诗接龙_break_simple_add'
+    name = args.name
+    
     input_json = f'input/middle/{name}.json'
+    print(f'poet2html_middle input: {input_json}')
     json2html(out_dir, input_json, name, final=False)    
 
 
