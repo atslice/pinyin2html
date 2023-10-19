@@ -289,7 +289,7 @@ class PoetPinyin2h():
             gen tim_author chars and find pinyins, for printing
         """
         time_author = f'[{time}] {author}'
-        time_author_pinyins = [''] + time_pinyins + [']'] + [''] + author_pinyins
+        time_author_pinyins = [''] + time_pinyins + [''] + [''] + author_pinyins
         return time_author, time_author_pinyins
 
     def gen_headline_html(self, chars, pinyins, level = 1, style = ''):
