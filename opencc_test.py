@@ -9,6 +9,10 @@ def t2s(chars):
     cc = OpenCC('t2s')  # 使用OpenCC转换繁体为简体
     return cc.convert(chars)
 
+def s2t(chars):
+    cc = OpenCC('s2t')  # 使用OpenCC转换简体为繁体
+    return cc.convert(chars)
+
 def list2simple(_list: list):
     return [
         t2s(member) if type(member) is str else member
@@ -27,6 +31,10 @@ def dict2simple(poet: dict):
 def convert2simple(poets: list):
     return [dict2simple(poet) for poet in poets]
 
+def s2t_group(words):
+    for word in words:
+        print(s2t(word))
+
 def main():
     # https://zh.wiktionary.org/wiki/%E5%8A%92
     char = '劒'  # 剑劔劒劎剱剣
@@ -36,7 +44,16 @@ def main():
     print(t2s(char))  # 犂 -> 犂
 
     char = '緌'
-    print(t2s(char))    
+    print(t2s(char))
+
+    char = '红'
+    print(s2t(char))
+
+    words = [
+        '夜宿山寺',
+        '楼'
+        ]
+    s2t_group(words)   
 
 
 if __name__ =="__main__":
