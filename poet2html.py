@@ -336,7 +336,7 @@ class PoetPinyin2h():
                 pinyins: list of str, the pinyin data relative with chars
                 style: str, the leagal style attribute of font-size, text-align, etc
         """     
-        tag_start = f'\n      <p {style}>'
+        tag_start = f'\n      <p class="d-flex flex-column align-items-center justify-content-center" {style}>'
         tag_end = '\n      </p>'
         spans = self.gen_pinyin_han(chars, pinyins)
         return f'{tag_start}{spans}{tag_end}'
