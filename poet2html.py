@@ -45,9 +45,9 @@ class PoetPinyin2h():
 
     def init_for_pc(self):
         self.css_style = """
-    <style type="text/css">      
-       .py-chinese-item {min-width:25px;} 
-       .py-pinyin-item  {min-width:25px; width:50px;} 
+    <style type="text/css">  
+        .py-chinese-item {min-width:25px;} 
+        .py-pinyin-item  {min-width:25px; width:50px;} 
    </style>
    """
         self.css_style = ''
@@ -301,7 +301,7 @@ class PoetPinyin2h():
                 author_pinyins_key: author_pinyins,                
                 paragraphs_pinyins_key: paragraphs_pinyins
             }
-        html_str = f'\n    <div class="poet">{html_str}\n    </div>\n'
+        html_str = f'\n    <div class="d-flex flex-column align-items-center justify-content-center">{html_str}\n    </div>\n'
         return html_str, poet_pinyins
 
     def gen_time_author_chars_pinyins(self, time, author, time_pinyins, author_pinyins):
