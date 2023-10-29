@@ -17,12 +17,11 @@ class PoetPinyin2h():
 
     def init_for_phone(self):
         self.css_style = """
-    <style type="text/css">      
-       .py-chinese-item {min-width:50px;} 
-       .py-pinyin-item  {min-width:50px; width:100px;} 
+    <style type="text/css">  
+        .content > span.py-result-item {width:80px;} 
    </style>
    """
-        self.css_style = ''
+        # self.css_style = ''
         #        .py-result-item {line-height:2.2em;}
         self.kaiti_style = f'style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;AR PL UKai CN&quot;, &quot;AR PL UKai HK&quot;, &quot;AR PL UKai TW&quot;, &quot;AR PL UKai TW MBE&quot;, &quot;AR PL KaitiM GB&quot;, KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai, web-fz;"'
         # "text-align:center"
@@ -30,44 +29,49 @@ class PoetPinyin2h():
         self.style_headline = f'style="font-size:{h_font_size}; text-align:center"'  # 标题的字体大小
 
         p_font_size = '50px'
-        self.style_paragrah = f'style="font-size:{p_font_size}; text-align:center"'
+        self.style_paragrah = f'style="font-size:{p_font_size}; text-align:center; display: flex; justify-content: center;"'
+        # display: flex; justify-content: center
 
         p_font_size_author = '40px'
-        self.style_paragrah_author = f'style="font-size:{p_font_size_author}; text-align:center"'   # 作者段落的字体应设置比内容段落的字体稍小一点 
+        self.style_paragrah_author = f'style="font-size:{p_font_size_author}; text-align:center; "'   # 作者段落的字体应设置比内容段落的字体稍小一点 
 
         self.style_after_page = 'style="page-break-before: always;"'
         # page_head_height = '116px'  #  116px is the default value
-        page_head_height = '116px'
-        self.style_page_head = f'style="height: {page_head_height}; line-height: 136px; font-size: 32px; text-align: center; display: none;"'
-        # self.style_page_head = f'style="height: {page_head_height}; line-height: 136px; font-size: 32px; text-align: center;"'
+        page_head_height = '108px'
+        # self.style_page_head = f'style="height: {page_head_height}; line-height: 136px; font-size: 32px; text-align: center; display: none;"'
+        # 若使用display: none;使用chrome打印保存为pdf文件，页眉并没有相应的空高。去掉后，页眉空高就显示出来了。（打印为pdf时选择最小页边距，以免平行的两首诗单行字数太多时挤到一起。）
+        self.style_page_head = f'style="height: {page_head_height}; line-height: 136px; font-size: 32px; text-align: center;"'
         self.div_page_head = f'<div {self.style_page_head}></div>'
         self.div_after_page = f'\n<div {self.style_after_page}>{self.div_page_head}</div>'   # page break per poet
 
     def init_for_pc(self):
         self.css_style = """
     <style type="text/css">  
-        .py-chinese-item {min-width:25px;} 
-        .py-pinyin-item  {min-width:25px; width:50px;} 
+        .content > span.py-result-item {width:41px;} 
    </style>
    """
-        self.css_style = ''
-        #        .py-result-item {line-height:2.2em;}
+        # self.css_style = ''
+        #         .py-result-item {line-height:2.2em;}
+        #         .py-chinese-item {min-width:25px;} 
+        #         .py-pinyin-item  {min-width:25px; width:50px;}
         self.kaiti_style = f'style="font-family: 楷体, 楷体_gb2312, &quot;Kaiti SC&quot;, STKaiti, &quot;AR PL UKai CN&quot;, &quot;AR PL UKai HK&quot;, &quot;AR PL UKai TW&quot;, &quot;AR PL UKai TW MBE&quot;, &quot;AR PL KaitiM GB&quot;, KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai, web-fz;"'
         # "text-align:center"
         h_font_size = '25px'
         self.style_headline = f'style="font-size:{h_font_size}; text-align:center"'  # 标题的字体大小
 
         p_font_size = '25px'
-        self.style_paragrah = f'style="font-size:{p_font_size}; text-align:center"'
+        self.style_paragrah = f'style="font-size:{p_font_size}; text-align:center; display: flex; justify-content: center;"'  # display: flex; justify-content: center;正是这一设置使段落对齐
+        # display: flex; justify-content: center
 
         p_font_size_author = '20px'
-        self.style_paragrah_author = f'style="font-size:{p_font_size_author}; text-align:center"'   # 作者段落的字体应设置比内容段落的字体稍小一点 
+        self.style_paragrah_author = f'style="font-size:{p_font_size_author}; text-align:center; "'   # 作者段落的字体应设置比内容段落的字体稍小一点 
 
         self.style_after_page = 'style="page-break-before: always;"'
         # page_head_height = '116px'  #  116px is the default value
-        page_head_height = '116px'
-        self.style_page_head = f'style="height: {page_head_height}; line-height: 136px; font-size: 32px; text-align: center; display: none;"'
-        # self.style_page_head = f'style="height: {page_head_height}; line-height: 136px; font-size: 32px; text-align: center;"'
+        page_head_height = '108px'
+        # self.style_page_head = f'style="height: {page_head_height}; line-height: 136px; font-size: 32px; text-align: center; display: none;"'
+        # 若使用display: none;使用chrome打印保存为pdf文件，页眉并没有相应的空高。去掉后，页眉空高就显示出来了。
+        self.style_page_head = f'style="height: {page_head_height}; line-height: 136px; font-size: 32px; text-align: center;"'
         self.div_page_head = f'<div {self.style_page_head}></div>'
         self.div_after_page = f'\n<div {self.style_after_page}>{self.div_page_head}</div>'   # page break per poet
 
@@ -283,7 +287,9 @@ class PoetPinyin2h():
         title_pinyins = poet[title_pinyins_key] if self.final else self.find_pinyins(title)
         title_paragraph = self.gen_headline_html(chars=title, pinyins=title_pinyins, level=1, style=self.style_headline)
 
-        author_paragraph = self.gen_paragrah_html(chars=time_author, pinyins=time_author_pinyins, style=self.style_paragrah_author)
+        class_author = 'class="author"'
+        class_content = 'class="content"'
+        author_paragraph = self.gen_paragrah_html(chars=time_author, pinyins=time_author_pinyins, style=self.style_paragrah_author, hclass=class_author)
 
         if self.final:  # each poet contains pinyin data
             paragraphs_pinyins_db = poet[paragraphs_pinyins_key]
@@ -291,7 +297,7 @@ class PoetPinyin2h():
         paragraphs_pinyins = {}  # 存储分行诗句对应的拼音
         for paragraph in paragraphs:
             paragraph_pinyins = paragraphs_pinyins_db[paragraph] if self.final else self.find_pinyins(paragraph)
-            poet_paragraph = self.gen_paragrah_html(chars=paragraph, pinyins=paragraph_pinyins, style=self.style_paragrah)
+            poet_paragraph = self.gen_paragrah_html(chars=paragraph, pinyins=paragraph_pinyins, style=self.style_paragrah, hclass=class_content)
             poet_paragraphs += poet_paragraph
             paragraphs_pinyins[paragraph] = paragraph_pinyins
         html_str = f'{title_paragraph}{author_paragraph}{poet_paragraphs}'
@@ -301,7 +307,7 @@ class PoetPinyin2h():
                 author_pinyins_key: author_pinyins,                
                 paragraphs_pinyins_key: paragraphs_pinyins
             }
-        html_str = f'\n    <div class="d-flex flex-column align-items-center justify-content-center">{html_str}\n    </div>\n'
+        html_str = f'\n    <div>{html_str}\n    </div>\n'
         return html_str, poet_pinyins
 
     def gen_time_author_chars_pinyins(self, time, author, time_pinyins, author_pinyins):
@@ -328,7 +334,7 @@ class PoetPinyin2h():
         spans = self.gen_pinyin_han(chars, pinyins)
         return f'{tag_start}{spans}{tag_end}'
 
-    def gen_paragrah_html(self, chars, pinyins, style = ''):
+    def gen_paragrah_html(self, chars, pinyins, style = '', hclass = ''):
         """
             generate html paragrah with pinyin han span
             Args:
@@ -336,7 +342,7 @@ class PoetPinyin2h():
                 pinyins: list of str, the pinyin data relative with chars
                 style: str, the leagal style attribute of font-size, text-align, etc
         """     
-        tag_start = f'\n      <p class="d-flex flex-column align-items-center justify-content-center" {style}>'
+        tag_start = f'\n      <p {hclass} {style}>'
         tag_end = '\n      </p>'
         spans = self.gen_pinyin_han(chars, pinyins)
         return f'{tag_start}{spans}{tag_end}'
@@ -455,6 +461,7 @@ class PoetPinyin2h():
         return html_end   
 
     def gen_span(self, char: str, mark: str):
+        mark_mod = '&nbsp;' if (mark == '' or mark == ' ') else mark  # <p> 使用flex对齐，如果标点对应的拼音为空，标点会到拼音和汉字的中间，而不是跟汉字在一行。所以用html空格符号占位拼音。
         module = """
         <span class="py-result-item">
             <ruby>
@@ -465,7 +472,7 @@ class PoetPinyin2h():
             </ruby>
         </span>        
         """
-        return module.format_map({'style': self.kaiti_style, '汉': char, 'hàn': mark})
+        return module.format_map({'style': self.kaiti_style, '汉': char, 'hàn': mark_mod})
 
 
 def poets2html(out_dir, name, poets, final=False):

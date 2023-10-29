@@ -15,7 +15,7 @@ def dump_json_sort(_file, _dict):
         json.dump(_dict, fp, cls = ComplexEncoder, indent=4, sort_keys=True, ensure_ascii=False)
 
 def dump_json(_file, _dict):
-    with open(_file, 'w') as fp:
+    with open(_file, 'w', encoding='utf-8') as fp:
         json.dump(_dict, fp, cls = ComplexEncoder, indent=4, sort_keys=False, ensure_ascii=False)
 
 def dump_json_sort_ascii(_file, _dict):
@@ -23,7 +23,7 @@ def dump_json_sort_ascii(_file, _dict):
         json.dump(_dict, fp, cls = ComplexEncoder, indent=4, sort_keys=True)
 
 def load_json(_file):
-    with open(_file, 'r') as reader:
+    with open(_file, 'r', encoding='utf-8') as reader:
         return json.load(reader)
 
 def beautify(in_file, out_file):

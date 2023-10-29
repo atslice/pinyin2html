@@ -42,7 +42,7 @@ def get_pinyins(chars):
             get pinyins from chars
             Args:
                 chars: str, only Chinese chars
-            Return: list, the relative pinyin of chars, if some char in chars is not Chinese chars, space->space, biaodian->empty string
+            Return: list, the relative pinyin of chars, if some char in chars is not Chinese chars, space->space, biaodian->space
         """
         pinyins = []  # 存储对应的拼音, 长度与chars对应，可存储，为方便以后拼音修改
         # marks = pinyin(chars, heteronym=True)
@@ -55,7 +55,7 @@ def get_pinyins(chars):
         j = 0
         for group in groups:
             # print(j)
-            pys = [ '' if is_not_cnchar(char) else marks[j][0]  # 因分词不当，可能有多个读音的情况下，取第一个读音
+            pys = [ ' ' if is_not_cnchar(char) else marks[j][0]  # 因分词不当，可能有多个读音的情况下，取第一个读音
                     for char in group
                 ]
             pinyins += pys
