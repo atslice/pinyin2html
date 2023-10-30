@@ -17,7 +17,8 @@ class PoetPinyin2h():
 
     def init_for_phone(self):
         self.css_style = """
-    <style type="text/css">  
+    <style type="text/css">
+        .py-chinese-item {font-family: 楷体, 楷体_gb2312, "Kaiti SC", STKaiti, "AR PL UKai CN", "AR PL UKai HK", "AR PL UKai TW", "AR PL UKai TW MBE", "AR PL KaitiM GB", KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai, web-fz;}
         .content > span.py-result-item {width:80px;} 
    </style>
    """
@@ -46,7 +47,8 @@ class PoetPinyin2h():
 
     def init_for_pc(self):
         self.css_style = """
-    <style type="text/css">  
+    <style type="text/css">
+        .py-chinese-item {font-family: 楷体, 楷体_gb2312, "Kaiti SC", STKaiti, "AR PL UKai CN", "AR PL UKai HK", "AR PL UKai TW", "AR PL UKai TW MBE", "AR PL KaitiM GB", KaiTi, KaiTi_GB2312, DFKai-SB, TW-Kai, web-fz;}     
         .content > span.py-result-item {width:41px;} 
    </style>
    """
@@ -472,7 +474,8 @@ class PoetPinyin2h():
             </ruby>
         </span>        
         """
-        return module.format_map({'style': self.kaiti_style, '汉': char, 'hàn': mark_mod})
+        # return module.format_map({'style': self.kaiti_style, '汉': char, 'hàn': mark_mod})
+        return module.format_map({'style': '', '汉': char, 'hàn': mark_mod})
 
 
 def poets2html(out_dir, name, poets, final=False):
