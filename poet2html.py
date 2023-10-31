@@ -152,6 +152,25 @@ class PoetPinyin2h():
     def get_poet_length(self, poet):
         """统计当前诗有多少行"""
         return len(poet['paragraphs_break'])
+    
+    def add_pre_html(self):
+        """add some instructions in front page"""
+        html = ''
+        html += self.div_after_page
+        instructions = '本文档由kivy制作。'
+        i1 = '仅限北际路小学2023级02班使用，请勿外传。'
+        i2 = '虽力臻完美，错误或恐难免。思量再三，还是决定分享出来，以备需者自取，介意者勿用。'
+        i3 = '使用过程中如发现错误，请在“一(2)班吧”微信或QQ群指出。'
+        p = f'<p class="py-chinese-item" style="font-size: 25px; text-align:left">{instructions}</p>'
+        p1 = f'<p class="py-chinese-item" style="font-size: 25px; text-align:left">{i1}</p>'
+        p2 = f'<p class="py-chinese-item" style="font-size: 25px; text-align:left">{i2}</p>'
+        p3 = f'<p class="py-chinese-item" style="font-size: 25px; text-align:left">{i3}</p>'
+        html += p
+        html += p1
+        html += p2
+        html += p3
+        return html
+
 
     def gen_poets_html_cts(self, poets):
         """gen Traditional Chinese Edition"""
@@ -163,6 +182,8 @@ class PoetPinyin2h():
             str += self.div_after_page
             return str
 
+        pre_html = self.add_pre_html()
+        poets_html += pre_html
         poets_html = add_page_break(poets_html)  # the page head div for the first page, to be the same with the other pages
         cache = True  # cache 为True, 则暂不分页
         for poet in poets:
@@ -218,7 +239,9 @@ class PoetPinyin2h():
         poets_html = ''
         self.init_for_phone()
         html_start = self.gen_start()
-        poets_html += self.div_page_head  # the page head div for the first page, to be the same with the other pages
+        pre_html = self.add_pre_html()
+        poets_html += pre_html
+        poets_html += self.div_after_page  # the page head div for the first page, to be the same with the other pages
         i = 0  # 为方便update self.__poets_pinyin__
         for poet in poets:
             poet_html, poet_pinyins = self.gen_poet_html(poet, edition='t')
@@ -234,7 +257,9 @@ class PoetPinyin2h():
         poets_html = ''
         self.init_for_phone()
         html_start = self.gen_start()
-        poets_html += self.div_page_head  # the page head div for the first page, to be the same with the other pages
+        pre_html = self.add_pre_html()
+        poets_html += pre_html
+        poets_html += self.div_after_page  # the page head div for the first page, to be the same with the other pages
         i = 0  # 为方便update self.__poets_pinyin__
         for poet in poets:
             poet_html, poet_pinyins = self.gen_poet_html(poet, edition='s')
