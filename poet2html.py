@@ -161,16 +161,19 @@ class PoetPinyin2h():
         i1 = '仅限北际路小学2023级02班使用，请勿外传。'
         i2 = '虽力臻完美，错误或恐难免。思量再三，还是决定分享出来，以备需者自取，介意者勿用。'
         i3 = '使用过程中如发现错误，请在“一(2)班吧”微信或QQ群指出。'
+        i4 = '注: 《蝉》一诗中，緌的类推简化字“纟委”（左纟右委），目前在任何字符编码中都没有收录，暂时用正体的緌字替代。'
         h1 = '<h1 class="py-chinese-item" style="font-size: 45px; text-align:center">古诗接龙1</h1>'
         p = f'<p class="py-chinese-item" style="font-size: 25px; text-align:left">{instructions}</p>'
         p1 = f'<p class="py-chinese-item" style="font-size: 25px; text-align:left">{i1}</p>'
         p2 = f'<p class="py-chinese-item" style="font-size: 25px; text-align:left">{i2}</p>'
         p3 = f'<p class="py-chinese-item" style="font-size: 25px; text-align:left">{i3}</p>'
+        p4 = f'<p class="py-chinese-item" style="font-size: 25px; text-align:left">{i4}</p>'
         html += h1
         html += p
         html += p1
         html += p2
         html += p3
+        html += p4
         return html
 
 

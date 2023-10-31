@@ -3070,5 +3070,1702 @@
         "time_simple_pinyins": [
             "sòng"
         ]
+    },
+
+    {
+        "author": "杜甫",
+        "paragraphs": [
+            "遲日江山麗，春風花草香。",
+            "泥融飛燕子，沙暖睡鴛鴦。"
+        ],
+        "tags": [
+            "春天",
+            "写景",
+            "春"
+        ],
+        "title": "絕句二首 一",
+        "id": "c55ccfa6-8820-40b0-90ff-79412f03c7a8",
+        "time": "唐",
+        "paragraphs_break": [
+            "遲日江山麗，",
+            "春風花草香。",
+            "泥融飛燕子，",
+            "沙暖睡鴛鴦。"
+        ],
+        "author_simple": "杜甫",
+        "paragraphs_simple": [
+            "迟日江山丽，春风花草香。",
+            "泥融飞燕子，沙暖睡鸳鸯。"
+        ],
+        "tags_simple": [
+            "春天",
+            "写景",
+            "春"
+        ],
+        "title_simple": "绝句二首 一",
+        "id_simple": "c55ccfa6-8820-40b0-90ff-79412f03c7a8",
+        "time_simple": "唐",
+        "paragraphs_break_simple": [
+            "迟日江山丽，",
+            "春风花草香。",
+            "泥融飞燕子，",
+            "沙暖睡鸳鸯。"
+        ],
+        "title_pinyins": [
+            "jué",
+            "jù",
+            "èr",
+            "shǒu",
+            " ",
+            "yī"
+        ],
+        "time_pinyins": [
+            "táng"
+        ],
+        "author_pinyins": [
+            "dù",
+            "fǔ"
+        ],
+        "paragraphs_break_pinyins": {
+            "遲日江山麗，": [
+                "chí",
+                "rì",
+                "jiāng",
+                "shān",
+                "lì",
+                " "
+            ],
+            "春風花草香。": [
+                "chūn",
+                "fēng",
+                "huā",
+                "cǎo",
+                "xiāng",
+                " "
+            ],
+            "泥融飛燕子，": [
+                "ní",
+                "róng",
+                "fēi",
+                "yàn",
+                "zi",
+                " "
+            ],
+            "沙暖睡鴛鴦。": [
+                "shā",
+                "nuǎn",
+                "shuì",
+                "yuān",
+                "yāng",
+                " "
+            ]
+        },
+        "title_simple_pinyins": [
+            "jué",
+            "jù",
+            "èr",
+            "shǒu",
+            " ",
+            "yī"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ],
+        "author_simple_pinyins": [
+            "dù",
+            "fǔ"
+        ],
+        "paragraphs_break_simple_pinyins": {
+            "迟日江山丽，": [
+                "chí",
+                "rì",
+                "jiāng",
+                "shān",
+                "lì",
+                " "
+            ],
+            "春风花草香。": [
+                "chūn",
+                "fēng",
+                "huā",
+                "cǎo",
+                "xiāng",
+                " "
+            ],
+            "泥融飞燕子，": [
+                "ní",
+                "róng",
+                "fēi",
+                "yàn",
+                "zi",
+                " "
+            ],
+            "沙暖睡鸳鸯。": [
+                "shā",
+                "nuǎn",
+                "shuì",
+                "yuān",
+                "yāng",
+                " "
+            ]
+        }
+    },
+    {
+        "author": "鄭谷",
+        "paragraphs": [
+            "揚子江頭楊柳春，楊花愁殺渡江人。",
+            "數聲風笛離亭晚，君向瀟湘我向秦。"
+        ],
+        "tags": [
+            "离别",
+            "柳树"
+        ],
+        "title": "淮上與友人別",
+        "id": "1f2de7e3-e2c9-404f-91e1-8cc2cc96ccd1",
+        "time": "唐",
+        "paragraphs_break": [
+            "揚子江頭楊柳春，",
+            "楊花愁殺渡江人。",
+            "數聲風笛離亭晚，",
+            "君向瀟湘我向秦。"
+        ],
+        "author_simple": "郑谷",
+        "paragraphs_simple": [
+            "扬子江头杨柳春，杨花愁杀渡江人。",
+            "数声风笛离亭晚，君向潇湘我向秦。"
+        ],
+        "tags_simple": [
+            "离别",
+            "柳树"
+        ],
+        "title_simple": "淮上与友人别",
+        "id_simple": "1f2de7e3-e2c9-404f-91e1-8cc2cc96ccd1",
+        "time_simple": "唐",
+        "paragraphs_break_simple": [
+            "扬子江头杨柳春，",
+            "杨花愁杀渡江人。",
+            "数声风笛离亭晚，",
+            "君向潇湘我向秦。"
+        ],
+        "title_pinyins": [
+            "huái",
+            "shàng",
+            "yǔ",
+            "yǒu",
+            "rén",
+            "bié"
+        ],
+        "time_pinyins": [
+            "táng"
+        ],
+        "author_pinyins": [
+            "zhèng",
+            "gǔ"
+        ],
+        "paragraphs_break_pinyins": {
+            "揚子江頭楊柳春，": [
+                "yáng",
+                "zi",
+                "jiāng",
+                "tóu",
+                "yáng",
+                "liǔ",
+                "chūn",
+                " "
+            ],
+            "楊花愁殺渡江人。": [
+                "yáng",
+                "huā",
+                "chóu",
+                "shā",
+                "dù",
+                "jiāng",
+                "rén",
+                " "
+            ],
+            "數聲風笛離亭晚，": [
+                "shù",
+                "shēng",
+                "fēng",
+                "dí",
+                "lí",
+                "tíng",
+                "wǎn",
+                " "
+            ],
+            "君向瀟湘我向秦。": [
+                "jūn",
+                "xiàng",
+                "xiāo",
+                "xiāng",
+                "wǒ",
+                "xiàng",
+                "qín",
+                " "
+            ]
+        },
+        "title_simple_pinyins": [
+            "huái",
+            "shàng",
+            "yǔ",
+            "yǒu",
+            "rén",
+            "bié"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ],
+        "author_simple_pinyins": [
+            "zhèng",
+            "gǔ"
+        ],
+        "paragraphs_break_simple_pinyins": {
+            "扬子江头杨柳春，": [
+                "yáng",
+                "zi",
+                "jiāng",
+                "tóu",
+                "yáng",
+                "liǔ",
+                "chūn",
+                " "
+            ],
+            "杨花愁杀渡江人。": [
+                "yáng",
+                "huā",
+                "chóu",
+                "shā",
+                "dù",
+                "jiāng",
+                "rén",
+                " "
+            ],
+            "数声风笛离亭晚，": [
+                "shù",
+                "shēng",
+                "fēng",
+                "dí",
+                "lí",
+                "tíng",
+                "wǎn",
+                " "
+            ],
+            "君向潇湘我向秦。": [
+                "jūn",
+                "xiàng",
+                "xiāo",
+                "xiāng",
+                "wǒ",
+                "xiàng",
+                "qín",
+                " "
+            ]
+        }
+    },
+    {
+        "author": "王昌齡",
+        "paragraphs": [
+            "秦時明月漢時關，萬里長征人未還。",
+            "但使龍城飛將在，不教胡馬度陰山。"
+        ],
+        "tags": [
+            "战争",
+            "写景",
+            "忧国忧民",
+            "爱国",
+            "唐诗三百首",
+            "乐府",
+            "山",
+            "边塞"
+        ],
+        "title": "出塞二首 一",
+        "id": "de6b7e3d-03cd-4daa-bdc2-7fb820fda441",
+        "time": "唐",
+        "paragraphs_break": [
+            "秦時明月漢時關，",
+            "萬里長征人未還。",
+            "但使龍城飛將在，",
+            "不教胡馬度陰山。"
+        ],
+        "author_simple": "王昌龄",
+        "paragraphs_simple": [
+            "秦时明月汉时关，万里长征人未还。",
+            "但使龙城飞将在，不教胡马度阴山。"
+        ],
+        "tags_simple": [
+            "战争",
+            "写景",
+            "忧国忧民",
+            "爱国",
+            "唐诗三百首",
+            "乐府",
+            "山",
+            "边塞"
+        ],
+        "title_simple": "出塞二首 一",
+        "id_simple": "de6b7e3d-03cd-4daa-bdc2-7fb820fda441",
+        "time_simple": "唐",
+        "paragraphs_break_simple": [
+            "秦时明月汉时关，",
+            "万里长征人未还。",
+            "但使龙城飞将在，",
+            "不教胡马度阴山。"
+        ],
+        "title_pinyins": [
+            "chū",
+            "sài",
+            "èr",
+            "shǒu",
+            " ",
+            "yī"
+        ],
+        "time_pinyins": [
+            "táng"
+        ],
+        "author_pinyins": [
+            "wáng",
+            "chāng",
+            "líng"
+        ],
+        "paragraphs_break_pinyins": {
+            "秦時明月漢時關，": [
+                "qín",
+                "shí",
+                "míng",
+                "yuè",
+                "hàn",
+                "shí",
+                "guān",
+                " "
+            ],
+            "萬里長征人未還。": [
+                "wàn",
+                "lǐ",
+                "zhǎng",
+                "zhēng",
+                "rén",
+                "wèi",
+                "huán",
+                " "
+            ],
+            "但使龍城飛將在，": [
+                "dàn",
+                "shǐ",
+                "lóng",
+                "chéng",
+                "fēi",
+                "jiàng",
+                "zài",
+                " "
+            ],
+            "不教胡馬度陰山。": [
+                "bú",
+                "jiào",
+                "hú",
+                "mǎ",
+                "dù",
+                "yīn",
+                "shān",
+                " "
+            ]
+        },
+        "title_simple_pinyins": [
+            "chū",
+            "sài",
+            "èr",
+            "shǒu",
+            " ",
+            "yī"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ],
+        "author_simple_pinyins": [
+            "wáng",
+            "chāng",
+            "líng"
+        ],
+        "paragraphs_break_simple_pinyins": {
+            "秦时明月汉时关，": [
+                "qín",
+                "shí",
+                "míng",
+                "yuè",
+                "hàn",
+                "shí",
+                "guān",
+                " "
+            ],
+            "万里长征人未还。": [
+                "wàn",
+                "lǐ",
+                "cháng",
+                "zhēng",
+                "rén",
+                "wèi",
+                "huán",
+                " "
+            ],
+            "但使龙城飞将在，": [
+                "dàn",
+                "shǐ",
+                "lóng",
+                "chéng",
+                "fēi",
+                "jiàng",
+                "zài",
+                " "
+            ],
+            "不教胡马度阴山。": [
+                "bú",
+                "jiào",
+                "hú",
+                "mǎ",
+                "dù",
+                "yīn",
+                "shān",
+                " "
+            ]
+        }
+    },
+    {
+        "author": "林升",
+        "paragraphs": [
+            "山外青山樓外樓，西湖歌舞幾時休。",
+            "暖風薰得遊人醉，直把杭州作汴州。"
+        ],
+        "tags": [
+            "西湖",
+            "生活",
+            "写景",
+            "讽刺",
+            "古诗三百首",
+            "宋诗",
+            "带有地名",
+            "地名"
+        ],
+        "title": "題臨安邸",
+        "id": "eb3740c2-4500-4842-96a2-11ca136b44c7",
+        "time": "宋",
+        "paragraphs_break": [
+            "山外青山樓外樓，",
+            "西湖歌舞幾時休。",
+            "暖風薰得遊人醉，",
+            "直把杭州作汴州。"
+        ],
+        "author_simple": "林升",
+        "paragraphs_simple": [
+            "山外青山楼外楼，西湖歌舞几时休。",
+            "暖风薰得游人醉，直把杭州作汴州。"
+        ],
+        "tags_simple": [
+            "西湖",
+            "生活",
+            "写景",
+            "讽刺",
+            "古诗三百首",
+            "宋诗",
+            "带有地名",
+            "地名"
+        ],
+        "title_simple": "题临安邸",
+        "id_simple": "eb3740c2-4500-4842-96a2-11ca136b44c7",
+        "time_simple": "宋",
+        "paragraphs_break_simple": [
+            "山外青山楼外楼，",
+            "西湖歌舞几时休。",
+            "暖风薰得游人醉，",
+            "直把杭州作汴州。"
+        ],
+        "title_pinyins": [
+            "tí",
+            "lín",
+            "ān",
+            "dǐ"
+        ],
+        "time_pinyins": [
+            "sòng"
+        ],
+        "author_pinyins": [
+            "lín",
+            "shēng"
+        ],
+        "paragraphs_break_pinyins": {
+            "山外青山樓外樓，": [
+                "shān",
+                "wài",
+                "qīng",
+                "shān",
+                "lóu",
+                "wài",
+                "lóu",
+                " "
+            ],
+            "西湖歌舞幾時休。": [
+                "xī",
+                "hú",
+                "gē",
+                "wǔ",
+                "jǐ",
+                "shí",
+                "xiū",
+                " "
+            ],
+            "暖風薰得遊人醉，": [
+                "nuǎn",
+                "fēng",
+                "xūn",
+                "dé",
+                "yóu",
+                "rén",
+                "zuì",
+                " "
+            ],
+            "直把杭州作汴州。": [
+                "zhí",
+                "bǎ",
+                "háng",
+                "zhōu",
+                "zuò",
+                "biàn",
+                "zhōu",
+                " "
+            ]
+        },
+        "title_simple_pinyins": [
+            "tí",
+            "lín",
+            "ān",
+            "dǐ"
+        ],
+        "time_simple_pinyins": [
+            "sòng"
+        ],
+        "author_simple_pinyins": [
+            "lín",
+            "shēng"
+        ],
+        "paragraphs_break_simple_pinyins": {
+            "山外青山楼外楼，": [
+                "shān",
+                "wài",
+                "qīng",
+                "shān",
+                "lóu",
+                "wài",
+                "lóu",
+                " "
+            ],
+            "西湖歌舞几时休。": [
+                "xī",
+                "hú",
+                "gē",
+                "wǔ",
+                "jǐ",
+                "shí",
+                "xiū",
+                " "
+            ],
+            "暖风薰得游人醉，": [
+                "nuǎn",
+                "fēng",
+                "xūn",
+                "dé",
+                "yóu",
+                "rén",
+                "zuì",
+                " "
+            ],
+            "直把杭州作汴州。": [
+                "zhí",
+                "bǎ",
+                "háng",
+                "zhōu",
+                "zuò",
+                "biàn",
+                "zhōu",
+                " "
+            ]
+        }
+    },
+    {
+        "author": "范成大",
+        "paragraphs": [
+            "晝出耘田夜績麻，村莊兒女各當家。",
+            "童孫未解供耕織，也傍桑陰學種瓜。"
+        ],
+        "tags": [
+            "生活",
+            "夏天",
+            "农村",
+            "夏",
+            "古诗三百首",
+            "小学古诗"
+        ],
+        "title": "四時田園雜興六十首 夏日田園雜興十二絕 其七",
+        "id": "a68459f2-2a61-42ca-9cea-6e32cf3983e6",
+        "time": "宋",
+        "paragraphs_break": [
+            "晝出耘田夜績麻，",
+            "村莊兒女各當家。",
+            "童孫未解供耕織，",
+            "也傍桑陰學種瓜。"
+        ],
+        "author_simple": "范成大",
+        "paragraphs_simple": [
+            "昼出耘田夜绩麻，村庄儿女各当家。",
+            "童孙未解供耕织，也傍桑阴学种瓜。"
+        ],
+        "tags_simple": [
+            "生活",
+            "夏天",
+            "农村",
+            "夏",
+            "古诗三百首",
+            "小学古诗"
+        ],
+        "title_simple": "四时田园杂兴六十首 夏日田园杂兴十二绝 其七",
+        "id_simple": "a68459f2-2a61-42ca-9cea-6e32cf3983e6",
+        "time_simple": "宋",
+        "paragraphs_break_simple": [
+            "昼出耘田夜绩麻，",
+            "村庄儿女各当家。",
+            "童孙未解供耕织，",
+            "也傍桑阴学种瓜。"
+        ],
+        "title_pinyins": [
+            "sì",
+            "shí",
+            "tián",
+            "yuán",
+            "zá",
+            "xìng",
+            "liù",
+            "shí",
+            "shǒu",
+            " ",
+            "xià",
+            "rì",
+            "tián",
+            "yuán",
+            "zá",
+            "xìng",
+            "shí",
+            "èr",
+            "jué",
+            " ",
+            "qí",
+            "qī"
+        ],
+        "time_pinyins": [
+            "sòng"
+        ],
+        "author_pinyins": [
+            "fàn",
+            "chéng",
+            "dà"
+        ],
+        "paragraphs_break_pinyins": {
+            "晝出耘田夜績麻，": [
+                "zhòu",
+                "chū",
+                "yún",
+                "tián",
+                "yè",
+                "jī",
+                "má",
+                " "
+            ],
+            "村莊兒女各當家。": [
+                "cūn",
+                "zhuāng",
+                "ér",
+                "nǚ",
+                "gè",
+                "dāng",
+                "jiā",
+                " "
+            ],
+            "童孫未解供耕織，": [
+                "tóng",
+                "sūn",
+                "wèi",
+                "jiě",
+                "gòng",
+                "gēng",
+                "zhī",
+                " "
+            ],
+            "也傍桑陰學種瓜。": [
+                "yě",
+                "bàng",
+                "sāng",
+                "yīn",
+                "xué",
+                "zhòng",
+                "guā",
+                " "
+            ]
+        },
+        "title_simple_pinyins": [
+            "sì",
+            "shí",
+            "tián",
+            "yuán",
+            "zá",
+            "xīng",
+            "liù",
+            "shí",
+            "shǒu",
+            " ",
+            "xià",
+            "rì",
+            "tián",
+            "yuán",
+            "zá",
+            "xīng",
+            "shí",
+            "èr",
+            "jué",
+            " ",
+            "qí",
+            "qī"
+        ],
+        "time_simple_pinyins": [
+            "sòng"
+        ],
+        "author_simple_pinyins": [
+            "fàn",
+            "chéng",
+            "dà"
+        ],
+        "paragraphs_break_simple_pinyins": {
+            "昼出耘田夜绩麻，": [
+                "zhòu",
+                "chū",
+                "yún",
+                "tián",
+                "yè",
+                "jì",
+                "má",
+                " "
+            ],
+            "村庄儿女各当家。": [
+                "cūn",
+                "zhuāng",
+                "ér",
+                "nǚ",
+                "gè",
+                "dāng",
+                "jiā",
+                " "
+            ],
+            "童孙未解供耕织，": [
+                "tóng",
+                "sūn",
+                "wèi",
+                "jiě",
+                "gòng",
+                "gēng",
+                "zhī",
+                " "
+            ],
+            "也傍桑阴学种瓜。": [
+                "yě",
+                "bàng",
+                "sāng",
+                "yīn",
+                "xué",
+                "zhòng",
+                "guā",
+                " "
+            ]
+        }
+    },
+    {
+        "author": "孟浩然",
+        "paragraphs": [
+            "挂席幾千里，名山都未逢。",
+            "泊舟潯陽郭，始見香爐峰。",
+            "嘗讀遠公傳，永懷塵外蹤。",
+            "東林精舍近，日暮但聞鐘。"
+        ],
+        "tags": [
+            "庐山",
+            "写景",
+            "抒情",
+            "描写山",
+            "写山"
+        ],
+        "title": "晚泊潯陽望廬山",
+        "id": "b128b1ea-3c7c-48e2-8d21-566d654b10fa",
+        "time": "唐",
+        "paragraphs_break": [
+            "挂席幾千里，",
+            "名山都未逢。",
+            "泊舟潯陽郭，",
+            "始見香爐峰。",
+            "嘗讀遠公傳，",
+            "永懷塵外蹤。",
+            "東林精舍近，",
+            "日暮但聞鐘。"
+        ],
+        "author_simple": "孟浩然",
+        "paragraphs_simple": [
+            "挂席几千里，名山都未逢。",
+            "泊舟浔阳郭，始见香炉峰。",
+            "尝读远公传，永怀尘外踪。",
+            "东林精舍近，日暮但闻钟。"
+        ],
+        "tags_simple": [
+            "庐山",
+            "写景",
+            "抒情",
+            "描写山",
+            "写山"
+        ],
+        "title_simple": "晚泊浔阳望庐山",
+        "id_simple": "b128b1ea-3c7c-48e2-8d21-566d654b10fa",
+        "time_simple": "唐",
+        "paragraphs_break_simple": [
+            "挂席几千里，",
+            "名山都未逢。",
+            "泊舟浔阳郭，",
+            "始见香炉峰。",
+            "尝读远公传，",
+            "永怀尘外踪。",
+            "东林精舍近，",
+            "日暮但闻钟。"
+        ],
+        "title_pinyins": [
+            "wǎn",
+            "bó",
+            "xún",
+            "yáng",
+            "wàng",
+            "lú",
+            "shān"
+        ],
+        "time_pinyins": [
+            "táng"
+        ],
+        "author_pinyins": [
+            "mèng",
+            "hào",
+            "rán"
+        ],
+        "paragraphs_break_pinyins": {
+            "挂席幾千里，": [
+                "guà",
+                "xí",
+                "jǐ",
+                "qiān",
+                "lǐ",
+                " "
+            ],
+            "名山都未逢。": [
+                "míng",
+                "shān",
+                "dōu",
+                "wèi",
+                "féng",
+                " "
+            ],
+            "泊舟潯陽郭，": [
+                "bó",
+                "zhōu",
+                "xún",
+                "yáng",
+                "guō",
+                " "
+            ],
+            "始見香爐峰。": [
+                "shǐ",
+                "jiàn",
+                "xiāng",
+                "lú",
+                "fēng",
+                " "
+            ],
+            "嘗讀遠公傳，": [
+                "cháng",
+                "dú",
+                "yuǎn",
+                "gōng",
+                "zhuàn",
+                " "
+            ],
+            "永懷塵外蹤。": [
+                "yǒng",
+                "huái",
+                "chén",
+                "wài",
+                "zōng",
+                " "
+            ],
+            "東林精舍近，": [
+                "dōng",
+                "lín",
+                "jīng",
+                "shè",
+                "jìn",
+                " "
+            ],
+            "日暮但聞鐘。": [
+                "rì",
+                "mù",
+                "dàn",
+                "wén",
+                "zhōng",
+                " "
+            ]
+        },
+        "title_simple_pinyins": [
+            "wǎn",
+            "bó",
+            "xún",
+            "yáng",
+            "wàng",
+            "lú",
+            "shān"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ],
+        "author_simple_pinyins": [
+            "mèng",
+            "hào",
+            "rán"
+        ],
+        "paragraphs_break_simple_pinyins": {
+            "挂席几千里，": [
+                "guà",
+                "xí",
+                "jǐ",
+                "qiān",
+                "lǐ",
+                " "
+            ],
+            "名山都未逢。": [
+                "míng",
+                "shān",
+                "dōu",
+                "wèi",
+                "féng",
+                " "
+            ],
+            "泊舟浔阳郭，": [
+                "bó",
+                "zhōu",
+                "xún",
+                "yáng",
+                "guō",
+                " "
+            ],
+            "始见香炉峰。": [
+                "shǐ",
+                "jiàn",
+                "xiāng",
+                "lú",
+                "fēng",
+                " "
+            ],
+            "尝读远公传，": [
+                "cháng",
+                "dú",
+                "yuǎn",
+                "gōng",
+                "zhuàn",
+                " "
+            ],
+            "永怀尘外踪。": [
+                "yǒng",
+                "huái",
+                "chén",
+                "wài",
+                "zōng",
+                " "
+            ],
+            "东林精舍近，": [
+                "dōng",
+                "lín",
+                "jīng",
+                "shè",
+                "jìn",
+                " "
+            ],
+            "日暮但闻钟。": [
+                "rì",
+                "mù",
+                "dàn",
+                "wén",
+                "zhōng",
+                " "
+            ]
+        }
+    },
+    {
+        "author": "陶淵明",
+        "paragraphs": [
+            "種豆南山下，草盛豆苗稀。",
+            "晨興理荒穢，帶月荷鋤歸。",
+            "道狹草木長，夕露沾我衣。",
+            "衣沾不足惜，但使願無違。"
+        ],
+        "tags": [],
+        "title": "歸園田居·其三",
+        "id": "",
+        "time": "魏晉",
+        "paragraphs_break": [
+            "種豆南山下，",
+            "草盛豆苗稀。",
+            "晨興理荒穢，",
+            "帶月荷鋤歸。",
+            "道狹草木長，",
+            "夕露沾我衣。",
+            "衣沾不足惜，",
+            "但使願無違。"
+        ],
+        "author_simple": "陶渊明",
+        "paragraphs_simple": [
+            "种豆南山下，草盛豆苗稀。",
+            "晨兴理荒秽，带月荷锄归。",
+            "道狭草木长，夕露沾我衣。",
+            "衣沾不足惜，但使愿无违。"
+        ],
+        "tags_simple": [],
+        "title_simple": "归园田居·其三",
+        "id_simple": "",
+        "time_simple": "魏晋",
+        "paragraphs_break_simple": [
+            "种豆南山下，",
+            "草盛豆苗稀。",
+            "晨兴理荒秽，",
+            "带月荷锄归。",
+            "道狭草木长，",
+            "夕露沾我衣。",
+            "衣沾不足惜，",
+            "但使愿无违。"
+        ],
+        "title_pinyins": [
+            "guī",
+            "yuán",
+            "tián",
+            "jū",
+            "·",
+            "qí",
+            "sān"
+        ],
+        "time_pinyins": [
+            "wèi",
+            "jìn"
+        ],
+        "author_pinyins": [
+            "táo",
+            "yuān",
+            "míng"
+        ],
+        "paragraphs_break_pinyins": {
+            "種豆南山下，": [
+                "zhòng",
+                "dòu",
+                "nán",
+                "shān",
+                "xià",
+                " "
+            ],
+            "草盛豆苗稀。": [
+                "cǎo",
+                "shèng",
+                "dòu",
+                "miáo",
+                "xī",
+                " "
+            ],
+            "晨興理荒穢，": [
+                "chén",
+                "xìng",
+                "lǐ",
+                "huāng",
+                "huì",
+                " "
+            ],
+            "帶月荷鋤歸。": [
+                "dài",
+                "yuè",
+                "hé",
+                "chú",
+                "guī",
+                " "
+            ],
+            "道狹草木長，": [
+                "dào",
+                "xiá",
+                "cǎo",
+                "mù",
+                "zhǎng",
+                " "
+            ],
+            "夕露沾我衣。": [
+                "xī",
+                "lù",
+                "zhān",
+                "wǒ",
+                "yī",
+                " "
+            ],
+            "衣沾不足惜，": [
+                "yī",
+                "zhān",
+                "bù",
+                "zú",
+                "xī",
+                " "
+            ],
+            "但使願無違。": [
+                "dàn",
+                "shǐ",
+                "yuàn",
+                "wú",
+                "wéi",
+                " "
+            ]
+        },
+        "title_simple_pinyins": [
+            "guī",
+            "yuán",
+            "tián",
+            "jū",
+            "·",
+            "qí",
+            "sān"
+        ],
+        "time_simple_pinyins": [
+            "wèi",
+            "jìn"
+        ],
+        "author_simple_pinyins": [
+            "táo",
+            "yuān",
+            "míng"
+        ],
+        "paragraphs_break_simple_pinyins": {
+            "种豆南山下，": [
+                "zhòng",
+                "dòu",
+                "nán",
+                "shān",
+                "xià",
+                " "
+            ],
+            "草盛豆苗稀。": [
+                "cǎo",
+                "shèng",
+                "dòu",
+                "miáo",
+                "xī",
+                " "
+            ],
+            "晨兴理荒秽，": [
+                "chén",
+                "xīng",
+                "lǐ",
+                "huāng",
+                "huì",
+                " "
+            ],
+            "带月荷锄归。": [
+                "dài",
+                "yuè",
+                "hè",
+                "chú",
+                "guī",
+                " "
+            ],
+            "道狭草木长，": [
+                "dào",
+                "xiá",
+                "cǎo",
+                "mù",
+                "zhǎng",
+                " "
+            ],
+            "夕露沾我衣。": [
+                "xī",
+                "lù",
+                "zhān",
+                "wǒ",
+                "yī",
+                " "
+            ],
+            "衣沾不足惜，": [
+                "yī",
+                "zhān",
+                "bù",
+                "zú",
+                "xī",
+                " "
+            ],
+            "但使愿无违。": [
+                "dàn",
+                "shǐ",
+                "yuàn",
+                "wú",
+                "wéi",
+                " "
+            ]
+        }
+    },
+    {
+        "author": "李白",
+        "paragraphs": [
+            "危樓高百尺，手可摘星辰。",
+            "不敢高聲語，恐驚天上人。"
+        ],
+        "tags": [
+            "名楼、庙宇",
+            "纪游",
+            "写景"
+        ],
+        "title": "夜宿山寺",
+        "id": "44066509-7894-4e0c-becb-7881129f4245",
+        "time": "唐",
+        "paragraphs_break": [
+            "危樓高百尺，",
+            "手可摘星辰。",
+            "不敢高聲語，",
+            "恐驚天上人。"
+        ],
+        "author_simple": "李白",
+        "paragraphs_simple": [
+            "危楼高百尺，手可摘星辰。",
+            "不敢高声语，恐惊天上人。"
+        ],
+        "tags_simple": [
+            "名楼、庙宇",
+            "纪游",
+            "写景"
+        ],
+        "title_simple": "夜宿山寺",
+        "id_simple": "44066509-7894-4e0c-becb-7881129f4245",
+        "time_simple": "唐",
+        "paragraphs_break_simple": [
+            "危楼高百尺，",
+            "手可摘星辰。",
+            "不敢高声语，",
+            "恐惊天上人。"
+        ],
+        "title_pinyins": [
+            "yè",
+            "sù",
+            "shān",
+            "sì"
+        ],
+        "time_pinyins": [
+            "táng"
+        ],
+        "author_pinyins": [
+            "lǐ",
+            "bái"
+        ],
+        "paragraphs_break_pinyins": {
+            "危樓高百尺，": [
+                "wēi",
+                "lóu",
+                "gāo",
+                "bǎi",
+                "chǐ",
+                " "
+            ],
+            "手可摘星辰。": [
+                "shǒu",
+                "kě",
+                "zhāi",
+                "xīng",
+                "chén",
+                " "
+            ],
+            "不敢高聲語，": [
+                "bù",
+                "gǎn",
+                "gāo",
+                "shēng",
+                "yǔ",
+                " "
+            ],
+            "恐驚天上人。": [
+                "kǒng",
+                "jīng",
+                "tiān",
+                "shàng",
+                "rén",
+                " "
+            ]
+        },
+        "title_simple_pinyins": [
+            "yè",
+            "sù",
+            "shān",
+            "sì"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ],
+        "author_simple_pinyins": [
+            "lǐ",
+            "bái"
+        ],
+        "paragraphs_break_simple_pinyins": {
+            "危楼高百尺，": [
+                "wēi",
+                "lóu",
+                "gāo",
+                "bǎi",
+                "chǐ",
+                " "
+            ],
+            "手可摘星辰。": [
+                "shǒu",
+                "kě",
+                "zhāi",
+                "xīng",
+                "chén",
+                " "
+            ],
+            "不敢高声语，": [
+                "bù",
+                "gǎn",
+                "gāo",
+                "shēng",
+                "yǔ",
+                " "
+            ],
+            "恐惊天上人。": [
+                "kǒng",
+                "jīng",
+                "tiān",
+                "shàng",
+                "rén",
+                " "
+            ]
+        }
+    },
+    {
+        "author": "陳中",
+        "paragraphs": [
+            "人間自多不平事，善良常悲惡欺世。",
+            "但等劍鋒磨礪出，挑盡邪毒照晴日。"
+        ],
+        "tags": [
+            "少年"
+        ],
+        "title": "憤世少年行",
+        "id": "",
+        "time": "清",
+        "paragraphs_break": [
+            "人間自多不平事，",
+            "善良常悲惡欺世。",
+            "但等劍鋒磨礪出，",
+            "挑盡邪毒照晴日。"
+        ],
+        "author_simple": "陈中",
+        "paragraphs_simple": [
+            "人间自多不平事，善良常悲恶欺世。",
+            "但等剑锋磨砺出，挑尽邪毒照晴日。"
+        ],
+        "tags_simple": [
+            "少年"
+        ],
+        "title_simple": "愤世少年行",
+        "id_simple": "",
+        "time_simple": "清",
+        "paragraphs_break_simple": [
+            "人间自多不平事，",
+            "善良常悲恶欺世。",
+            "但等剑锋磨砺出，",
+            "挑尽邪毒照晴日。"
+        ],
+        "title_pinyins": [
+            "fèn",
+            "shì",
+            "shào",
+            "nián",
+            "xíng"
+        ],
+        "time_pinyins": [
+            "qīng"
+        ],
+        "author_pinyins": [
+            "chén",
+            "zhōng"
+        ],
+        "paragraphs_break_pinyins": {
+            "人間自多不平事，": [
+                "rén",
+                "jiān",
+                "zì",
+                "duō",
+                "bù",
+                "píng",
+                "shì",
+                " "
+            ],
+            "善良常悲惡欺世。": [
+                "shàn",
+                "liáng",
+                "cháng",
+                "bēi",
+                "è",
+                "qī",
+                "shì",
+                " "
+            ],
+            "但等劍鋒磨礪出，": [
+                "dàn",
+                "děng",
+                "jiàn",
+                "fēng",
+                "mó",
+                "lì",
+                "chū",
+                " "
+            ],
+            "挑盡邪毒照晴日。": [
+                "tiǎo",
+                "jìn",
+                "xié",
+                "dú",
+                "zhào",
+                "qíng",
+                "rì",
+                " "
+            ]
+        },
+        "title_simple_pinyins": [
+            "fèn",
+            "shì",
+            "shào",
+            "nián",
+            "xíng"
+        ],
+        "time_simple_pinyins": [
+            "qīng"
+        ],
+        "author_simple_pinyins": [
+            "chén",
+            "zhōng"
+        ],
+        "paragraphs_break_simple_pinyins": {
+            "人间自多不平事，": [
+                "rén",
+                "jiān",
+                "zì",
+                "duō",
+                "bù",
+                "píng",
+                "shì",
+                " "
+            ],
+            "善良常悲恶欺世。": [
+                "shàn",
+                "liáng",
+                "cháng",
+                "bēi",
+                "è",
+                "qī",
+                "shì",
+                " "
+            ],
+            "但等剑锋磨砺出，": [
+                "dàn",
+                "děng",
+                "jiàn",
+                "fēng",
+                "mó",
+                "lì",
+                "chū",
+                " "
+            ],
+            "挑尽邪毒照晴日。": [
+                "tiǎo",
+                "jìn",
+                "xié",
+                "dú",
+                "zhào",
+                "qíng",
+                "rì",
+                " "
+            ]
+        }
+    },
+    {
+        "author": "李白",
+        "paragraphs": [
+            "日照香爐生紫煙，遙看瀑布挂前川。",
+            "飛流直下三千尺，疑是銀河落九天。"
+        ],
+        "tags": [
+            "庐山",
+            "二年级下册",
+            "山水",
+            "写景",
+            "山",
+            "瀑布",
+            "水",
+            "小学古诗"
+        ],
+        "title": "望廬山瀑布二首 二",
+        "id": "c155ff88-deac-4c17-8648-91f478d77ef9",
+        "time": "唐",
+        "paragraphs_break": [
+            "日照香爐生紫煙，",
+            "遙看瀑布挂前川。",
+            "飛流直下三千尺，",
+            "疑是銀河落九天。"
+        ],
+        "author_simple": "李白",
+        "paragraphs_simple": [
+            "日照香炉生紫烟，遥看瀑布挂前川。",
+            "飞流直下三千尺，疑是银河落九天。"
+        ],
+        "tags_simple": [
+            "庐山",
+            "二年级下册",
+            "山水",
+            "写景",
+            "山",
+            "瀑布",
+            "水",
+            "小学古诗"
+        ],
+        "title_simple": "望庐山瀑布二首 二",
+        "id_simple": "c155ff88-deac-4c17-8648-91f478d77ef9",
+        "time_simple": "唐",
+        "paragraphs_break_simple": [
+            "日照香炉生紫烟，",
+            "遥看瀑布挂前川。",
+            "飞流直下三千尺，",
+            "疑是银河落九天。"
+        ],
+        "title_pinyins": [
+            "wàng",
+            "lú",
+            "shān",
+            "pù",
+            "bù",
+            "èr",
+            "shǒu",
+            " ",
+            "èr"
+        ],
+        "time_pinyins": [
+            "táng"
+        ],
+        "author_pinyins": [
+            "lǐ",
+            "bái"
+        ],
+        "paragraphs_break_pinyins": {
+            "日照香爐生紫煙，": [
+                "rì",
+                "zhào",
+                "xiāng",
+                "lú",
+                "shēng",
+                "zǐ",
+                "yān",
+                " "
+            ],
+            "遙看瀑布挂前川。": [
+                "yáo",
+                "kàn",
+                "pù",
+                "bù",
+                "guà",
+                "qián",
+                "chuān",
+                " "
+            ],
+            "飛流直下三千尺，": [
+                "fēi",
+                "liú",
+                "zhí",
+                "xià",
+                "sān",
+                "qiān",
+                "chǐ",
+                " "
+            ],
+            "疑是銀河落九天。": [
+                "yí",
+                "shì",
+                "yín",
+                "hé",
+                "luò",
+                "jiǔ",
+                "tiān",
+                " "
+            ]
+        },
+        "title_simple_pinyins": [
+            "wàng",
+            "lú",
+            "shān",
+            "pù",
+            "bù",
+            "èr",
+            "shǒu",
+            " ",
+            "èr"
+        ],
+        "time_simple_pinyins": [
+            "táng"
+        ],
+        "author_simple_pinyins": [
+            "lǐ",
+            "bái"
+        ],
+        "paragraphs_break_simple_pinyins": {
+            "日照香炉生紫烟，": [
+                "rì",
+                "zhào",
+                "xiāng",
+                "lú",
+                "shēng",
+                "zǐ",
+                "yān",
+                " "
+            ],
+            "遥看瀑布挂前川。": [
+                "yáo",
+                "kàn",
+                "pù",
+                "bù",
+                "guà",
+                "qián",
+                "chuān",
+                " "
+            ],
+            "飞流直下三千尺，": [
+                "fēi",
+                "liú",
+                "zhí",
+                "xià",
+                "sān",
+                "qiān",
+                "chǐ",
+                " "
+            ],
+            "疑是银河落九天。": [
+                "yí",
+                "shì",
+                "yín",
+                "hé",
+                "luò",
+                "jiǔ",
+                "tiān",
+                " "
+            ]
+        }
     }
 ]

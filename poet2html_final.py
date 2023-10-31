@@ -61,11 +61,11 @@ def json2html(out_dir, input_json, name, final=False):
     poets2html(out_dir, name, poets, final)
 
 def main():
-    # args = parse_args()
+    args = parse_args()
     out_dir = '../p2h_data'
     makedirs(out_dir)    
-    name = '古诗接龙1_break_simple_add_pinyin'
-    # name = args.name
+    # name = '古诗接龙1_break_simple_add_pinyin'
+    name = args.name
     input_json = f'input/final/{name}.json'
     print(f'poet2html_final input: {input_json}')
     json2html(out_dir, input_json, name, final=True)    
