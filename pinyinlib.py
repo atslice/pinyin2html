@@ -11,7 +11,7 @@ def get_pinyins(chars):
 
     def is_not_cnchar(char):
         """return boolean"""
-        non_chars = '，。[] '
+        non_chars = '，。[] ·'
         return True if char in non_chars else False
 
     def group(chars):
